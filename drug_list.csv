@@ -1,0 +1,64 @@
+drug,category
+warfarin,anticoagulant
+apixaban,anticoagulant
+rivaroxaban,anticoagulant
+dabigatran,anticoagulant
+edoxaban,anticoagulant
+enoxaparin,anticoagulant
+heparin,anticoagulant
+clopidogrel,antiplatelet
+prasugrel,antiplatelet
+ticagrelor,antiplatelet
+aspirin,antiplatelet
+amiodarone,antiarrhythmic
+dronedarone,antiarrhythmic
+dofetilide,antiarrhythmic
+sotalol,antiarrhythmic
+flecainide,antiarrhythmic
+propafenone,antiarrhythmic
+digoxin,antiarrhythmic
+metoprolol,beta blocker
+carvedilol,beta blocker
+atenolol,beta blocker
+bisoprolol,beta blocker
+propranolol,beta blocker
+diltiazem,calcium channel blocker
+verapamil,calcium channel blocker
+amlodipine,calcium channel blocker
+lisinopril,ACE inhibitor
+enalapril,ACE inhibitor
+ramipril,ACE inhibitor
+losartan,ARB
+valsartan,ARB
+spironolactone,diuretic
+eplerenone,diuretic
+furosemide,diuretic
+torsemide,diuretic
+hydrochlorothiazide,diuretic
+potassium chloride,electrolyte
+atorvastatin,statin
+simvastatin,statin
+rosuvastatin,statin
+pravastatin,statin
+ezetimibe,lipid lowering
+ranolazine,antianginal
+isosorbide mononitrate,antianginal
+nitroglycerin,antianginal
+hydralazine,vasodilator
+sildenafil,PDE5 inhibitor
+metformin,antidiabetic
+empagliflozin,antidiabetic
+dapagliflozin,antidiabetic
+clarithromycin,interacting drug (CYP3A4 inhibitor)
+erythromycin,interacting drug (CYP3A4 inhibitor)
+fluconazole,interacting drug (CYP inhibitor)
+itraconazole,interacting drug (CYP3A4 inhibitor)
+rifampin,interacting drug (enzyme inducer)
+carbamazepine,interacting drug (enzyme inducer)
+phenytoin,interacting drug (enzyme inducer)
+sulfamethoxazole and trimethoprim,interacting drug (hyperkalemia / warfarin)
+ibuprofen,interacting drug (NSAID)
+naproxen,interacting drug (NSAID)
+omeprazole,interacting drug (PPI / CYP2C19)
+fluoxetine,interacting drug (SSRI / CYP2D6)
+sertraline,interacting drug (SSRI)

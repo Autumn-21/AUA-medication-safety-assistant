@@ -1,0 +1,14 @@
+# Week 1: data download, test set, EDA
+requests>=2.31
+pandas>=2.0
+matplotlib>=3.7
+jupyter>=1.0
+
+# Week 2 onwards: search, AI and web app
+# Remove the "#" in front of these lines when you start Week 2.
+# Note: sentence-transformers also installs PyTorch (a large download, about 1-2 GB).
+# rank-bm25>=0.2.2            # keyword search
+# sentence-transformers>=3.0  # meaning-based search (embeddings)
+# anthropic>=0.40             # AI model API (Claude)
+# python-dotenv>=1.0          # reads API keys from the .env file
+# streamlit>=1.38             # web app

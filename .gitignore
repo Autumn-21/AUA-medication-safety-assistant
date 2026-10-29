@@ -1,0 +1,24 @@
+# Secret keys: NEVER upload
+.env
+
+# Python environment and caches
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Jupyter temporary files
+.ipynb_checkpoints/
+
+# Original openFDA downloads (large; re-create with: python download_data.py)
+data/raw/
+
+# Search indexes and model files built in Week 2 (re-create from the data)
+indexes/
+*.faiss
+*.pkl
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+desktop.ini
