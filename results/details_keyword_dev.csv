@@ -1,0 +1,31 @@
+patient_id,category,outcome,flag_type,drugs,severity_expected,severity_given,citation_correct,citation_exact,citation_verified,explanation
+P001,interaction,TP,interaction,aspirin + warfarin,major,major,True,True,True,
+P001,interaction,FP,contraindication,metoprolol,,major,,,True,A patient condition is mentioned in the Boxed Warning section.
+P001,interaction,FP,contraindication,warfarin,,major,,,True,A patient condition is mentioned in the Contraindications section.
+P003,interaction,TP,interaction,sulfamethoxazole and trimethoprim + warfarin,major,major,True,False,True,
+P003,interaction,FP,contraindication,warfarin,,contraindicated,,,True,A patient condition is mentioned in the Contraindications section.
+P005,interaction,TP,interaction,amiodarone + simvastatin,major,major,True,False,True,
+P007,interaction,TP,interaction,dofetilide + verapamil,contraindicated,contraindicated,True,True,True,
+P007,interaction,FP,contraindication,verapamil,,major,,,True,A patient condition is mentioned in the Contraindications section.
+P009,interaction,TP,interaction,clopidogrel + omeprazole,major,major,True,True,True,
+P011,interaction,TP,interaction,rifampin + rivaroxaban,major,major,True,True,True,
+P013,interaction,TP,interaction,amiodarone + digoxin,major,major,True,False,True,
+P013,interaction,FP,contraindication,digoxin,,contraindicated,,,True,A patient condition is mentioned in the Contraindications section.
+P015,interaction,TP,interaction,isosorbide mononitrate + sildenafil,contraindicated,major,True,False,True,
+P015,interaction,FP,contraindication,isosorbide mononitrate,,major,,,True,A patient condition is mentioned in the Contraindications section.
+P017,interaction,TP,interaction,clarithromycin + dronedarone,contraindicated,major,True,False,True,
+P017,interaction,FP,contraindication,clarithromycin,,major,,,True,A patient condition is mentioned in the Contraindications section.
+P017,interaction,FP,contraindication,dronedarone,,major,,,True,A patient condition is mentioned in the Boxed Warning section.
+P019,interaction,TP,interaction,apixaban + carbamazepine,major,major,True,True,True,
+P021,contraindication,TP,contraindication,warfarin,contraindicated,contraindicated,True,True,True,
+P023,contraindication,FN,contraindication,metformin,contraindicated,,,,,
+P025,contraindication,TP,contraindication,propranolol,contraindicated,major,False,False,False,
+P027,dose,FN,dose,apixaban,major,,,,,
+P029,dose,FN,dose,enoxaparin,major,,,,,
+P031,dose,TP,dose,edoxaban,major,major,True,False,True,
+P033,multiple,TP,interaction,amiodarone + simvastatin,major,major,True,False,True,
+P033,multiple,FN,dose,apixaban,major,,,,,
+P033,multiple,FN,interaction,apixaban + ibuprofen,major,,,,,
+P035,negative,FP,contraindication,metoprolol,,major,,,True,A patient condition is mentioned in the Boxed Warning section.
+P037,negative,FP,contraindication,valsartan,,major,,,True,A patient condition is mentioned in the Contraindications section.
+P043,negative,FP,interaction,diltiazem + simvastatin,,major,,,True,simvastatin is mentioned in the Drug Interactions section of the diltiazem label.

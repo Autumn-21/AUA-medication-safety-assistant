@@ -1,0 +1,124 @@
+{
+ "output": {
+  "flags": [
+   {
+    "flag_type": "contraindication",
+    "drugs": [
+     "sulfamethoxazole and trimethoprim"
+    ],
+    "explanation": "The patient has a documented allergy to sulfonamide antibiotics, which is a contraindication for the use of sulfamethoxazole and trimethoprim.",
+    "is_problem": true,
+    "severity": "contraindicated",
+    "recommendation": "Do not use sulfamethoxazole and trimethoprim in patients with a known hypersensitivity to sulfonamides.",
+    "citations": [
+     {
+      "chunk_id": "sulfamethoxazole and trimethoprim::contraindications::00",
+      "quote": "Sulfamethoxazole and trimethoprim tablets are contraindicated in the following situations: \u2022 known hypersensitivity to trimethoprim or sulfonamides"
+     }
+    ]
+   }
+  ],
+  "not_in_library": []
+ },
+ "usage": {
+  "input_tokens": 4846,
+  "output_tokens": 220,
+  "seconds": 13.5
+ },
+ "model": "gemini:gemini-3.1-flash-lite",
+ "raw_text": "{\n  \"flags\": [\n    {\n      \"flag_type\": \"contraindication\",\n      \"drugs\": [\n        \"sulfamethoxazole and trimethoprim\"\n      ],\n      \"explanation\": \"The patient has a documented allergy to sulfonamide antibiotics, which is a contraindication for the use of sulfamethoxazole and trimethoprim.\",\n      \"is_problem\": true,\n      \"severity\": \"contraindicated\",\n      \"recommendation\": \"Do not use sulfamethoxazole and trimethoprim in patients with a known hypersensitivity to sulfonamides.\",\n      \"citations\": [\n        {\n          \"chunk_id\": \"sulfamethoxazole and trimethoprim::contraindications::00\",\n          \"quote\": \"Sulfamethoxazole and trimethoprim tablets are contraindicated in the following situations: \u2022 known hypersensitivity to trimethoprim or sulfonamides\"\n        }\n      ]\n    }\n  ],\n  \"not_in_library\": []\n}",
+ "request": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system": "You are a clinical pharmacy decision-support assistant that reviews a patient's medicines for a\npharmacist. You must work ONLY from the FDA label excerpts provided with each request.\n\nGrounding rules (most important):\n- Every claim must be supported by the excerpts. Do not use outside knowledge for any warning.\n- Every flag must cite at least one excerpt by its exact id, with a quote of 8 to 40 consecutive words copied\n  exactly from that excerpt (same words, same order).\n- If the excerpts do not support a concern, do not flag it.\n\nFlag only problems that apply to THIS patient:\n1. interaction: two of the patient's medicines that the label warns about when used together\n   (including dose limits for a combination, e.g. \"do not exceed X mg with drug Y\").\n2. contraindication: a medicine unsafe for this patient because of a condition, pregnancy, allergy or kidney function.\n3. dose: a dose that does not match the label for this patient's kidney function (CrCl / eGFR given),\n   age or body weight.\nDo not flag general warnings that apply to every patient taking the drug unless a feature of this patient or one\nof their other medicines triggers them. Use the CrCl and eGFR values given; do not recalculate them.\nMedicines marked [NOT IN OUR LABEL LIBRARY] must not be flagged; list them in not_in_library.\nIf there is nothing to flag, return an empty flags list.\n\nSeverity (use the label's own wording):\n- \"contraindicated\": the label says contraindicated, do not use, or must not be used.\n- \"major\": the label says avoid, reduce or change the dose, do not exceed a dose, or not recommended.\n- \"moderate\": the label says monitor, use caution, or consider a dose change.\n\nBefore you flag anything, check these rules:\n- Quotes: copy ONE continuous passage from a single excerpt, word for word. Do not join sentences from different\n  places or change any word.\n- Dose limits: when a label gives a maximum or recommended dose (alone, with another drug, or for a level of kidney\n  function, age or weight), compare it with the patient's ACTUAL dose. Flag only if the patient's dose is above the\n  limit or does not match what the label recommends for this patient. A combination the label allows at the\n  patient's current dose is not a problem.\n- Pregnancy: flag a medicine only if its label says it is contraindicated in pregnancy, should be avoided or\n  discontinued, or has a boxed warning about harm to the fetus. Statements such as \"use only if the potential\n  benefit justifies the potential risk\" are not flags.\n- Check every medicine: for each one, look for interactions with each other medicine, contraindications for this\n  patient, and whether the dose fits this patient's kidney function, age and weight.\n- Self-check every candidate flag: in \"explanation\", first compare the patient's ACTUAL situation (their dose,\n  kidney function, age, weight, other medicines, pregnancy, conditions) with what the label requires. Then set\n  \"is_problem\": true only if the label shows the patient's current medicines or dose are a problem; false if the\n  label shows they are acceptable (for example, the dose already matches the label's recommendation for this\n  patient). Only flags with is_problem = true are shown to the pharmacist.\n- Quotes: copy the label's sentence exactly as written, keeping its numbers as digits and its word order.",
+  "user": "PATIENT\nAge: 59  Sex: F  Weight: 68.0 kg\nSerum creatinine: 0.8 mg/dL  ->  CrCl (Cockcroft-Gault): 81.3 mL/min, eGFR (CKD-EPI 2021): 84.8 mL/min/1.73m2  (calculated by code)\nPregnant: No\nConditions: urinary tract infection\nAllergies: sulfonamide antibiotics (rash)\nMedications:\n- sulfamethoxazole and trimethoprim 800/160 mg twice daily\n\nDrug names to use: sulfamethoxazole and trimethoprim\n\nFDA LABEL EXCERPTS (10)\n<excerpt id=\"sulfamethoxazole and trimethoprim::precautions::02\" drug=\"sulfamethoxazole and trimethoprim\" section=\"Precautions\">\nconcentrations in a substantial number of patients. Even treatment with recommended doses may cause hyperkalemia when trimethoprim is administered to patients with underlying disorders of potassium metabolism, with renal insufficiency, or if drugs known to induce hyperkalemia are given concomitantly. Close monitoring of serum potassium is warranted in these patients. Hyponatremia: Severe and symptomatic hyponatremia can occur in patients receiving sulfamethoxazole and trimethoprim, particularly for the treatment of P.jirovecii pneumonia. Evaluation for hyponatremia and appropriate correction is necessary in symptomatic patients to prevent life-threatening complications. Crystalluria: During treatment, ensure adequate fluid intake and urinary output to prevent crystalluria. Patients who are \u201cslow acetylators\u201d may be more prone to idiosyncratic reactions to sulfonamides. Information for Patients Hypersensitivity and Other Serious Reactions: Advise patients to stop taking sulfamethoxazole and trimethoprim immediately if they experience any clinical signs such as rash, pharyngitis, fever, arthralgia, cough, chest pain, dyspnea, pallor, purpura or jaundice and to contact their healthcare provider as soon as possible (see WARNINGS and ADVERSE REACTIONS ). Antibacterial Resistance: Patients should be counseled that antibacterial drugs including sulfamethoxazole and trimethoprim tablets should only be used to treat bacterial infections. They do not treat viral infections (e.g., the common cold). When sulfamethoxazole and trimethoprim tablets are prescribed to treat a bacterial infection, patients should be told that although it is common to feel better early in the course of therapy, the medication should be taken exactly as directed. Skipping doses or not completing the full course of therapy may (1) decrease the effectiveness\n</excerpt>\n\n<excerpt id=\"sulfamethoxazole and trimethoprim::contraindications::00\" drug=\"sulfamethoxazole and trimethoprim\" section=\"Contraindications\">\nCONTRAINDICATIONS Sulfamethoxazole and trimethoprim tablets are contraindicated in the following situations: \u2022 known hypersensitivity to trimethoprim or sulfonamides \u2022 history of drug-induced immune thrombocytopenia with use of trimethoprim and/or sulfonamides \u2022 documented megaloblastic anemia due to folate deficiency \u2022 pediatric patients less than 2 months of age \u2022 marked hepatic damage \u2022 severe renal insufficiency when renal function status cannot be monitored \u2022 \u2022 concomitant administration with dofetilide (see PRECAUTIONS ).\n</excerpt>\n\n<excerpt id=\"sulfamethoxazole and trimethoprim::precautions::03\" drug=\"sulfamethoxazole and trimethoprim\" section=\"Precautions\">\ntrimethoprim tablets are prescribed to treat a bacterial infection, patients should be told that although it is common to feel better early in the course of therapy, the medication should be taken exactly as directed. Skipping doses or not completing the full course of therapy may (1) decrease the effectiveness of the immediate treatment and (2) increase the likelihood that bacteria will develop resistance and will not be treatable by sulfamethoxazole and trimethoprim tablets or other antibacterial drugs in the future. Crystalluria and Stone Formation: Advise patients to maintain an adequate fluid intake in order to prevent crystalluria and stone formation. Diarrhea: Advise patients that diarrhea is a common problem caused by antibiotics which usually ends when the antibiotic is discontinued. Sometimes after starting treatment with antibiotics, patients can develop watery and bloody stools (with or without stomach cramps and fever) even as late as two or more months after having taken the last dose of the antibiotic. If this occurs, patients should contact their physician as soon as possible. Laboratory Tests Complete blood counts and clinical chemistry testing should be done frequently in patients receiving sulfamethoxazole and trimethoprim. Perform urinalyses with careful microscopic examination and renal function tests during therapy, particularly for those patients with impaired renal function. Discontinue sulfamethoxazole and trimethoprim if a significant electrolyte abnormality, renal insufficiency or reduction in the count of any formed blood element is noted. Drug Interactions Potential for Sulfamethoxazole and Trimethoprim to Affect Other Drugs Trimethoprim is an inhibitor of CYP2C8 as\n</excerpt>\n\n<excerpt id=\"sulfamethoxazole and trimethoprim::warnings::02\" drug=\"sulfamethoxazole and trimethoprim\" section=\"Warnings\">\nsymptoms of HLH may include fever, hepatosplenomegaly, rash, lymphadenopathy, neurologic symptoms, cytopenias, high serum ferritin, hypertriglyceridemia, and liver enzyme and coagulation abnormalities. If HLH is suspected, discontinue sulfamethoxazole and trimethoprim immediately and institute appropriate management. Thrombocytopenia Sulfamethoxazole and trimethoprim-induced thrombocytopenia may be an immune-mediated disorder. Severe cases of thrombocytopenia that are fatal or life threatening have been reported. Thrombocytopenia usually resolves within a week upon discontinuation of sulfamethoxazole and trimethoprim. Streptococcal Infections and Rheumatic Fever The sulfonamides should not be used for treatment of group A \u03b2-hemolytic streptococcal infections. In an established infection, they will not eradicate the streptococcus and, therefore, will not prevent sequelae such as rheumatic fever. Clostridioides difficile Associated Diarrhea Clostridioides difficile associated diarrhea (CDAD) has been reported with use of nearly all antibacterial agents, including sulfamethoxazole and trimethoprim, and may range in severity from mild diarrhea to fatal colitis. Treatment with antibacterial agents alters the normal flora of the colon leading to overgrowth of C.difficile . C.difficile produces toxins A and B which contribute to the development of CDAD. Hypertoxin producing strains of C.difficile cause increased morbidity and mortality, as these infections can be refractory to antimicrobial therapy and may require colectomy. CDAD must be considered in all patients who present with diarrhea following antibiotic use. Careful medical history is necessary since CDAD has been reported to occur over two months after the administration of antibacterial agents. If CDAD is suspected or confirmed, ongoing antibiotic use not directed against C.difficile may need to be discontinued. Appropriate\n</excerpt>\n\n<excerpt id=\"sulfamethoxazole and trimethoprim::warnings::01\" drug=\"sulfamethoxazole and trimethoprim\" section=\"Warnings\">\nresulting in prolonged respiratory failure requiring mechanical ventilation or extracorporeal membrane oxygenation (ECMO), lung transplantation or death have also been reported in patients and otherwise healthy individuals treated with sulfamethoxazole and trimethoprim products. Circulatory Shock Circulatory shock with fever, severe hypotension, and confusion requiring intravenous fluid resuscitation and vasopressors has occurred within minutes to hours of re-challenge with sulfamethoxazole and trimethoprim products, including sulfamethoxazole and trimethoprim, in patients with history of recent (days to weeks) exposure to sulfamethoxazole and trimethoprim. Management of Hypersensitivity and Other Serious Reactions Sulfamethoxazole and trimethoprim should be discontinued at the first appearance of skin rash or any sign of a serious adverse reaction. A skin rash may be followed by a more severe reaction, such as Stevens-Johnson syndrome, toxic epidermal necrolysis, DRESS, AFND, AGEP, hepatic necrosis, or serious blood disorders (see PRECAUTIONS and ADVERSE REACTIONS ). Clinical signs, such as rash, pharyngitis, fever, arthralgia, cough, chest pain, dyspnea, pallor, purpura or jaundice may be early indications of serious reactions. Hemophagocytic Lymphohistiocytosis Cases of hemophagocytic lymphohistiocytosis (HLH) have been reported in patients treated with sulfamethoxazole-trimethoprim. HLH is a life-threatening syndrome of pathologic immune activation characterized by clinical signs and symptoms of extreme systemic inflammation. Signs and symptoms of HLH may include fever, hepatosplenomegaly, rash, lymphadenopathy, neurologic symptoms, cytopenias, high serum ferritin, hypertriglyceridemia, and liver enzyme and coagulation abnormalities. If HLH is suspected, discontinue sulfamethoxazole and trimethoprim immediately and institute appropriate management. Thrombocytopenia Sulfamethoxazole and trimethoprim-induced thrombocytopenia may be an immune-mediated disorder. Severe cases of thrombocytopenia that\n</excerpt>\n\n<excerpt id=\"sulfamethoxazole and trimethoprim::dosage_and_administration::00\" drug=\"sulfamethoxazole and trimethoprim\" section=\"Dosage and Administration\">\nDOSAGE AND ADMINISTRATION Sulfamethoxazole and trimethoprim tablets are contraindicated in pediatric patients less than 2 months of age. Urinary Tract Infections and Shigellosis in Adults and Pediatric Patients, and Acute Otitis Media in Children: Adults: The usual adult dosage in the treatment of urinary tract infections is 1 sulfamethoxazole and trimethoprim DS (double strength) tablet or 2 sulfamethoxazole and trimethoprim tablets every 12 hours for 10 to 14 days. An identical daily dosage is used for 5 days in the treatment of shigellosis. Children: The recommended dose for children with urinary tract infections or acute otitis media is 40 mg/kg sulfamethoxazole and 8 mg/kg trimethoprim per 24 hours, given in two divided doses every 12 hours for 10 days. An identical daily dosage is used for 5 days in the treatment of shigellosis. The following table is a guideline for the attainment of this dosage: Children 2 months of age or older: Weight Dose\u2013every 12 hours lb kg Tablets 22 10 \u2013 44 20 1 66 30 1\u00bd 88 40 2 or 1 DS tablet For Patients with Impaired Renal Function: When renal function is impaired, a reduced dosage should be employed using the following table: Creatinine Clearance (mL/min) Recommended Dosage Regimen Above 30 Usual standard regimen 15\u201330 \u00bd the usual regimen Below 15 Use not recommended Acute Exacerbations of Chronic Bronchitis in Adults: The usual adult dosage in the treatment of acute exacerbations of chronic bronchitis is 1 sulfamethoxazole and trimethoprim DS (double strength) tablet or 2 sulfamethoxazole and\n</excerpt>\n\n<excerpt id=\"sulfamethoxazole and trimethoprim::dosage_and_administration::01\" drug=\"sulfamethoxazole and trimethoprim\" section=\"Dosage and Administration\">\nDosage Regimen Above 30 Usual standard regimen 15\u201330 \u00bd the usual regimen Below 15 Use not recommended Acute Exacerbations of Chronic Bronchitis in Adults: The usual adult dosage in the treatment of acute exacerbations of chronic bronchitis is 1 sulfamethoxazole and trimethoprim DS (double strength) tablet or 2 sulfamethoxazole and trimethoprim tablets every 12 hours for 14 days. Pneumocystis jirovecii Pneumonia: Treatment: Adults and Children: The recommended dosage for treatment of patients with documented Pneumocystis jirovecii pneumonia is 75 to 100 mg/kg sulfamethoxazole and 15 to 20 mg/kg trimethoprim per 24 hours given in equally divided doses every 6 hours for 14 to 21 days. 12 The following table is a guideline for the upper limit of this dosage: Weight Dose\u2013every 6 hours lb kg Tablets 18 8 \u2013 35 16 1 53 24 1\u00bd 70 32 2 or 1 DS tablet 88 40 2\u00bd 106 48 3 or 1\u00bd DS tablets 141 64 4 or 2 DS tablets 176 80 5 or 2\u00bd DS tablets For the lower limit dose (75 mg/kg sulfamethoxazole and 15 mg/kg trimethoprim per 24 hours) administer 75% of the dose in the above table. Prophylaxis: Adults: The recommended dosage for prophylaxis in adults is 1 sulfamethoxazole and trimethoprim DS (double strength) tablet daily. 13 Children: For children, the recommended dose is 750 mg/m 2 /day sulfamethoxazole with 150 mg/m 2 /day trimethoprim given orally in equally divided doses twice a day, on 3 consecutive days per week. The total daily dose should not exceed\n</excerpt>\n\n<excerpt id=\"sulfamethoxazole and trimethoprim::dosage_and_administration::02\" drug=\"sulfamethoxazole and trimethoprim\" section=\"Dosage and Administration\">\n1 sulfamethoxazole and trimethoprim DS (double strength) tablet daily. 13 Children: For children, the recommended dose is 750 mg/m 2 /day sulfamethoxazole with 150 mg/m 2 /day trimethoprim given orally in equally divided doses twice a day, on 3 consecutive days per week. The total daily dose should not exceed 1600 mg sulfamethoxazole and 320 mg trimethoprim. 14 The following table is a guideline for the attainment of this dosage in children: Body Surface Area Dose\u2013every 12 hours (m 2 ) Tablets 0.26 \u2013 0.53 \u00bd 1.06 1 Traveler's Diarrhea in Adults: For the treatment of traveler\u2019s diarrhea, the usual adult dosage is 1 sulfamethoxazole and trimethoprim DS (double strength) tablet or 2 sulfamethoxazole and trimethoprim tablets every 12 hours for 5 days.\n</excerpt>\n\n<excerpt id=\"sulfamethoxazole and trimethoprim::geriatric_use::01\" drug=\"sulfamethoxazole and trimethoprim\" section=\"Geriatric Use\">\nadministered to patients with underlying disorders of potassium metabolism, with renal insufficiency or when given concomitantly with drugs known to induce hyperkalemia, such as angiotensin converting enzyme inhibitors. Close monitoring of serum potassium is warranted in these patients. Discontinuation of sulfamethoxazole and trimethoprim treatment is recommended to help lower potassium serum levels. Sulfamethoxazole and trimethoprim tablets contain 0.45 mg sodium (0.02 mEq) of sodium per tablet. Sulfamethoxazole and trimethoprim DS tablets contain 0.9 mg (0.04 mEq) of sodium per tablet. Pharmacokinetics parameters for sulfamethoxazole were similar for geriatric subjects and younger adult subjects. The mean maximum serum trimethoprim concentration was higher and mean renal clearance of trimethoprim was lower in geriatric subjects compared with younger subjects (see CLINICAL PHARMACOLOGY: Geriatric Pharmacokinetics ).\n</excerpt>\n\n<excerpt id=\"sulfamethoxazole and trimethoprim::precautions::10\" drug=\"sulfamethoxazole and trimethoprim\" section=\"Precautions\">\ninformation biases, and by limited generalizability of their findings. Lastly, outcome measures varied between studies, limiting cross-study comparisons. Alternatively, other epidemiologic studies did not detect statistically significant associations between sulfamethoxazole and trimethoprim exposure and specific malformations. Animal Data In rats, oral doses of either 533 mg/kg sulfamethoxazole or 200 mg/kg trimethoprim produced teratologic effects manifested mainly as cleft palates. These doses are approximately 5 and 6 times the recommended human total daily dose on a body surface area basis. In two studies in rats, no teratology was observed when 512 mg/kg of sulfamethoxazole was used in combination with 128 mg/kg of trimethoprim. In some rabbit studies, an overall increase in fetal loss (dead and resorbed conceptuses) was associated with doses of trimethoprim 6 times the human therapeutic dose based on body surface area. Nonteratogenic Effects See CONTRAINDICATIONS section. Nursing Mothers Levels of sulfamethoxazole and trimethoprim in breast milk are approximately 2 to 5% of the recommended daily dose for infants over 2 months of age. Caution should be exercised when sulfamethoxazole and trimethoprim is administered to a nursing woman, especially when breastfeeding, jaundiced, ill, stressed, or premature infants because of the potential risk of bilirubin displacement and kernicterus. Pediatric Use Sulfamethoxazole and trimethoprim is contraindicated for infants younger than 2 months of age (see INDICATIONS AND USAGE and CONTRAINDICATIONS sections). Geriatric Use Clinical studies of sulfamethoxazole and trimethoprim did not include sufficient numbers of subjects aged 65 and over to determine whether they respond differently from younger subjects. There may\n</excerpt>\n\nReview this patient's medicines and return the flags.",
+  "schema": {
+   "type": "object",
+   "properties": {
+    "flags": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "flag_type": {
+        "type": "string",
+        "enum": [
+         "interaction",
+         "contraindication",
+         "dose"
+        ]
+       },
+       "drugs": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "Drug names exactly as given in 'Drug names to use'"
+       },
+       "explanation": {
+        "type": "string",
+        "description": "Compare the patient's actual situation with the label, in one or two sentences for the pharmacist"
+       },
+       "is_problem": {
+        "type": "boolean",
+        "description": "true only if the label shows this is a problem for this patient"
+       },
+       "severity": {
+        "type": "string",
+        "enum": [
+         "contraindicated",
+         "major",
+         "moderate"
+        ]
+       },
+       "recommendation": {
+        "type": "string",
+        "description": "What the label says to do"
+       },
+       "citations": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "chunk_id": {
+           "type": "string"
+          },
+          "quote": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "chunk_id",
+          "quote"
+         ],
+         "additionalProperties": false
+        }
+       }
+      },
+      "required": [
+       "flag_type",
+       "drugs",
+       "explanation",
+       "is_problem",
+       "severity",
+       "recommendation",
+       "citations"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "not_in_library": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "flags",
+    "not_in_library"
+   ],
+   "additionalProperties": false
+  }
+ }
+}

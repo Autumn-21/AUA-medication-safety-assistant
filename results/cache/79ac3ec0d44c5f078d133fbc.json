@@ -1,0 +1,124 @@
+{
+ "output": {
+  "flags": [
+   {
+    "flag_type": "interaction",
+    "drugs": [
+     "aspirin",
+     "warfarin"
+    ],
+    "severity": "moderate",
+    "explanation": "Concomitant use of aspirin and warfarin significantly increases the risk of bleeding due to combined anticoagulant and antiplatelet effects.",
+    "recommendation": "Frequently monitor patients receiving warfarin and antiplatelet agents such as aspirin for signs and symptoms of bleeding.",
+    "citations": [
+     {
+      "drug_label": "warfarin",
+      "section": "7 DRUG INTERACTIONS",
+      "quote": "Concomitant use of other anticoagulants, antiplatelet agents, or other drugs that affect hemostasis increases the risk of bleeding. Frequently monitor patients receiving warfarin sodium and any of these agents for signs and symptoms of bleeding."
+     }
+    ]
+   }
+  ],
+  "not_in_library": []
+ },
+ "usage": {
+  "input_tokens": 758,
+  "output_tokens": 213,
+  "seconds": 370.8
+ },
+ "model": "gemini:gemini-3.8-flash",
+ "raw_text": "{\n  \"flags\": [\n    {\n      \"flag_type\": \"interaction\",\n      \"drugs\": [\n        \"aspirin\",\n        \"warfarin\"\n      ],\n      \"severity\": \"moderate\",\n      \"explanation\": \"Concomitant use of aspirin and warfarin significantly increases the risk of bleeding due to combined anticoagulant and antiplatelet effects.\",\n      \"recommendation\": \"Frequently monitor patients receiving warfarin and antiplatelet agents such as aspirin for signs and symptoms of bleeding.\",\n      \"citations\": [\n        {\n          \"drug_label\": \"warfarin\",\n          \"section\": \"7 DRUG INTERACTIONS\",\n          \"quote\": \"Concomitant use of other anticoagulants, antiplatelet agents, or other drugs that affect hemostasis increases the risk of bleeding. Frequently monitor patients receiving warfarin sodium and any of these agents for signs and symptoms of bleeding.\"\n        }\n      ]\n    }\n  ],\n  \"not_in_library\": []\n}",
+ "request": {
+  "provider": "gemini",
+  "model": "gemini-3.8-flash",
+  "system": "You are a clinical pharmacy decision-support assistant that reviews a patient's medicines for a\npharmacist, using your knowledge of the official FDA drug labels (no documents are provided).\n\nFor every flag, name the label section the information comes from and quote the label's wording as exactly as you can\n(8 to 40 words).\n\nFlag only problems that apply to THIS patient:\n1. interaction: two of the patient's medicines that the label warns about when used together\n   (including dose limits for a combination, e.g. \"do not exceed X mg with drug Y\").\n2. contraindication: a medicine unsafe for this patient because of a condition, pregnancy, allergy or kidney function.\n3. dose: a dose that does not match the label for this patient's kidney function (CrCl / eGFR given),\n   age or body weight.\nDo not flag general warnings that apply to every patient taking the drug unless a feature of this patient or one\nof their other medicines triggers them. Use the CrCl and eGFR values given; do not recalculate them.\nMedicines marked [NOT IN OUR LABEL LIBRARY] must not be flagged; list them in not_in_library.\nIf there is nothing to flag, return an empty flags list.\n\nSeverity (use the label's own wording):\n- \"contraindicated\": the label says contraindicated, do not use, or must not be used.\n- \"major\": the label says avoid, reduce or change the dose, do not exceed a dose, or not recommended.\n- \"moderate\": the label says monitor, use caution, or consider a dose change.",
+  "user": "PATIENT\nAge: 72  Sex: M  Weight: 80.0 kg\nSerum creatinine: 1.0 mg/dL  ->  CrCl (Cockcroft-Gault): 75.6 mL/min, eGFR (CKD-EPI 2021): 80.0 mL/min/1.73m2  (calculated by code)\nPregnant: No\nConditions: atrial fibrillation; hypertension\nAllergies: none\nMedications:\n- warfarin 5 mg once daily\n- aspirin 81 mg once daily\n- metoprolol succinate 50 mg once daily\n\nDrug names to use: aspirin, metoprolol, warfarin\n\nReview this patient's medicines and return the flags.",
+  "schema": {
+   "type": "object",
+   "properties": {
+    "flags": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "flag_type": {
+        "type": "string",
+        "enum": [
+         "interaction",
+         "contraindication",
+         "dose"
+        ]
+       },
+       "drugs": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "Drug names exactly as given in 'Drug names to use'"
+       },
+       "severity": {
+        "type": "string",
+        "enum": [
+         "contraindicated",
+         "major",
+         "moderate"
+        ]
+       },
+       "explanation": {
+        "type": "string",
+        "description": "One or two sentences for the pharmacist"
+       },
+       "recommendation": {
+        "type": "string",
+        "description": "What the label says to do"
+       },
+       "citations": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "drug_label": {
+           "type": "string"
+          },
+          "section": {
+           "type": "string"
+          },
+          "quote": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "drug_label",
+          "section",
+          "quote"
+         ],
+         "additionalProperties": false
+        }
+       }
+      },
+      "required": [
+       "flag_type",
+       "drugs",
+       "severity",
+       "explanation",
+       "recommendation",
+       "citations"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "not_in_library": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "flags",
+    "not_in_library"
+   ],
+   "additionalProperties": false
+  }
+ }
+}

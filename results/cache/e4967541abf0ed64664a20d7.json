@@ -1,0 +1,35 @@
+{
+ "output": {
+  "found": true,
+  "quote": "Patients taking Verapamil, Diltiazem, or Dronedarone Do not exceed simvastatin tablets USP 10 mg once daily."
+ },
+ "usage": {
+  "input_tokens": 539,
+  "output_tokens": 40,
+  "seconds": 12.0
+ },
+ "model": "gemini:gemini-3.1-flash-lite",
+ "raw_text": "{\"found\": true, \"quote\": \"Patients taking Verapamil, Diltiazem, or Dronedarone Do not exceed simvastatin tablets USP 10 mg once daily.\"}",
+ "request": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system": "You copy text exactly. You are given ONE excerpt from an FDA drug label and a warning that cites it.\nCopy, word for word, the shortest continuous passage (8 to 40 words) of the excerpt that supports the warning.\nDo not change, reorder, shorten or add any word; keep numbers exactly as written. If no passage of the excerpt supports\nthe warning, set \"found\" to false and \"quote\" to an empty string.",
+  "user": "WARNING\ndose: diltiazem + simvastatin\nThe patient is taking 20 mg of simvastatin daily while on diltiazem, but the label states that for patients taking diltiazem, the simvastatin dose should not exceed 10 mg daily.\n\nEXCERPT\n<excerpt id=\"simvastatin::dosage_and_administration::02\" drug=\"simvastatin\" section=\"Dosage and Administration\">\nclearance (CLcr) 15 \u2013 29 mL/min], the recommended starting dosage of simvastatin is 5 mg once daily [see WARNINGS AND PRECAUTIONS ( 5.1 ) AND USE IN SPECIFIC POPULATIONS ( 8.6 )]. Use another simvastatin product to initiate dosing in such patients [see DOSAGE AND ADMINISTRATION ( 2.1 )]. There are no dosage adjustment recommendations for patients with mild or moderate renal impairment. 2.5 Dosage Modifications Due to Drug Interactions Concomitant use of simvastatin tablets USP with the following drugs requires dosage modification of simvastatin tablets USP [see WARNINGS AND PRECAUTIONS ( 5.1 ) AND DRUG INTERACTIONS ( 7.1 )]. Patients taking Lomitapide Reduce the dosage of simvastatin tablets USP by 50%. Do not exceed simvastatin tablets USP 20 mg once daily (or 40 mg once daily for patients who have previously taken an 80 mg daily dosage of simvastatin tablets USP chronically while taking lomitapide) [see DOSAGE AND ADMINISTRATION (2.1)]. Patients taking Verapamil, Diltiazem, or Dronedarone Do not exceed simvastatin tablets USP 10 mg once daily. Patients taking Amiodarone, Amlodipine, or Ranolazine Do not exceed simvastatin tablets USP 20 mg once daily.\n</excerpt>\n\nCopy the supporting passage exactly.",
+  "schema": {
+   "type": "object",
+   "properties": {
+    "found": {
+     "type": "boolean"
+    },
+    "quote": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "found",
+    "quote"
+   ],
+   "additionalProperties": false
+  }
+ }
+}

@@ -7,8 +7,9 @@ venv/
 __pycache__/
 *.pyc
 
-# Jupyter temporary files
+# Jupyter / test temporary files
 .ipynb_checkpoints/
+.pytest_cache/
 
 # Original openFDA downloads (large; re-create with: python download_data.py)
 data/raw/
@@ -22,3 +23,7 @@ indexes/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Videos (too large for GitHub, max 100 MB per file; share them on Google Drive instead)
+*.mp4
+*.mov

@@ -1,0 +1,22 @@
+patient_id,category,outcome,flag_type,drugs,severity_expected,severity_given,citation_correct,citation_exact,citation_verified,explanation
+P001,interaction,TP,interaction,aspirin + warfarin,major,moderate,True,True,True,
+P003,interaction,TP,interaction,sulfamethoxazole and trimethoprim + warfarin,major,moderate,True,False,True,
+P005,interaction,TP,interaction,amiodarone + simvastatin,major,major,True,False,True,
+P007,interaction,TP,interaction,dofetilide + verapamil,contraindicated,contraindicated,True,True,True,
+P009,interaction,TP,interaction,clopidogrel + omeprazole,major,major,True,False,True,
+P011,interaction,TP,interaction,rifampin + rivaroxaban,major,major,True,True,True,
+P013,interaction,TP,interaction,amiodarone + digoxin,major,major,True,True,True,
+P015,interaction,TP,interaction,isosorbide mononitrate + sildenafil,contraindicated,contraindicated,True,True,True,
+P017,interaction,TP,interaction,clarithromycin + dronedarone,contraindicated,contraindicated,True,True,True,
+P019,interaction,TP,interaction,apixaban + carbamazepine,major,major,True,True,True,
+P021,contraindication,TP,contraindication,warfarin,contraindicated,contraindicated,True,True,True,
+P023,contraindication,TP,contraindication,metformin,contraindicated,major,False,False,True,
+P025,contraindication,TP,contraindication,propranolol,contraindicated,contraindicated,True,True,True,
+P027,dose,TP,dose,apixaban,major,major,True,True,True,
+P029,dose,TP,dose,enoxaparin,major,major,True,True,True,
+P031,dose,TP,dose,edoxaban,major,major,True,False,True,
+P033,multiple,TP,interaction,amiodarone + simvastatin,major,major,True,False,True,
+P033,multiple,FN,dose,apixaban,major,,,,,
+P033,multiple,FN,interaction,apixaban + ibuprofen,major,,,,,
+P041,negative,FP,contraindication,hydralazine,,moderate,,,True,The patient is pregnant. Hydralazine should only be used during pregnancy if the expected benefit justifies the potential risk to the fetus.
+P043,negative,FP,interaction,diltiazem + simvastatin,,major,,,True,"The concomitant use of diltiazem and simvastatin increases the risk of myopathy and rhabdomyolysis. The label specifies that for patients taking diltiazem, the simvastatin dose should not exceed 10 mg daily."

@@ -1,0 +1,26 @@
+patient_id,category,outcome,flag_type,drugs,severity_expected,severity_given,citation_correct,citation_exact,citation_verified,explanation
+P002,interaction,TP,interaction,fluconazole + warfarin,major,major,True,False,True,
+P004,interaction,TP,interaction,clarithromycin + simvastatin,contraindicated,contraindicated,True,False,True,
+P006,interaction,TP,interaction,diltiazem + simvastatin,major,major,True,False,True,
+P008,interaction,TP,interaction,dofetilide + hydrochlorothiazide,contraindicated,contraindicated,True,True,True,
+P010,interaction,TP,interaction,apixaban + itraconazole,major,major,True,False,True,
+P010,interaction,FP,contraindication,itraconazole,,major,,,True,A patient condition is mentioned in the Contraindications section.
+P012,interaction,FP,contraindication,ticagrelor,,major,,,True,A patient condition is mentioned in the Boxed Warning section.
+P012,interaction,FN,interaction,aspirin + ticagrelor,major,,,,,
+P014,interaction,TP,interaction,potassium chloride + spironolactone,major,major,True,False,True,
+P016,interaction,TP,interaction,clarithromycin + ranolazine,contraindicated,contraindicated,True,True,True,
+P018,interaction,TP,interaction,naproxen + warfarin,major,major,True,False,True,
+P020,interaction,TP,interaction,enalapril + potassium chloride,moderate,major,True,True,True,
+P022,contraindication,TP,contraindication,losartan,contraindicated,major,True,True,True,
+P024,contraindication,TP,contraindication,prasugrel,contraindicated,contraindicated,True,False,True,
+P026,contraindication,TP,contraindication,sulfamethoxazole and trimethoprim,contraindicated,major,True,True,True,
+P028,dose,FN,dose,dabigatran,major,,,,,
+P030,dose,FN,dose,rivaroxaban,major,,,,,
+P032,dose,FN,dose,dofetilide,major,,,,,
+P034,multiple,TP,interaction,amiodarone + digoxin,major,major,True,False,True,
+P034,multiple,TP,interaction,amiodarone + warfarin,major,major,True,False,True,
+P034,multiple,FP,contraindication,digoxin,,contraindicated,,,True,A patient condition is mentioned in the Contraindications section.
+P038,negative,FP,contraindication,carvedilol,,major,,,True,A patient condition is mentioned in the Contraindications section.
+P038,negative,FP,contraindication,rosuvastatin,,contraindicated,,,True,A patient condition is mentioned in the Contraindications section.
+P040,negative,FP,contraindication,metoprolol,,major,,,True,A patient condition is mentioned in the Boxed Warning section.
+P044,negative,FP,contraindication,metoprolol,,major,,,True,A patient condition is mentioned in the Boxed Warning section.

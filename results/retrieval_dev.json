@@ -1,0 +1,107 @@
+{
+ "bm25@1": {
+  "recall": 0.526,
+  "found": 10,
+  "expected": 19,
+  "avg_chunks_per_patient": 6.2,
+  "missed": [
+   "F005 P005 simvastatin + amiodarone",
+   "F011 P011 rivaroxaban + rifampin",
+   "F017 P017 dronedarone + clarithromycin",
+   "F023 P023 metformin (eGFR < 30)",
+   "F027 P027 apixaban",
+   "F029 P029 enoxaparin",
+   "F033 P033 apixaban",
+   "F034 P033 simvastatin + amiodarone",
+   "F035 P033 apixaban + ibuprofen"
+  ]
+ },
+ "bm25@3": {
+  "recall": 0.842,
+  "found": 16,
+  "expected": 19,
+  "avg_chunks_per_patient": 16.8,
+  "missed": [
+   "F017 P017 dronedarone + clarithromycin",
+   "F029 P029 enoxaparin",
+   "F033 P033 apixaban"
+  ]
+ },
+ "bm25@5": {
+  "recall": 1.0,
+  "found": 19,
+  "expected": 19,
+  "avg_chunks_per_patient": 25.7,
+  "missed": []
+ },
+ "vector@1": {
+  "recall": 0.526,
+  "found": 10,
+  "expected": 19,
+  "avg_chunks_per_patient": 6.5,
+  "missed": [
+   "F001 P001 warfarin + aspirin",
+   "F005 P005 simvastatin + amiodarone",
+   "F011 P011 rivaroxaban + rifampin",
+   "F013 P013 digoxin + amiodarone",
+   "F017 P017 dronedarone + clarithromycin",
+   "F027 P027 apixaban",
+   "F029 P029 enoxaparin",
+   "F033 P033 apixaban",
+   "F034 P033 simvastatin + amiodarone"
+  ]
+ },
+ "vector@3": {
+  "recall": 0.789,
+  "found": 15,
+  "expected": 19,
+  "avg_chunks_per_patient": 17.0,
+  "missed": [
+   "F013 P013 digoxin + amiodarone",
+   "F027 P027 apixaban",
+   "F029 P029 enoxaparin",
+   "F033 P033 apixaban"
+  ]
+ },
+ "vector@5": {
+  "recall": 1.0,
+  "found": 19,
+  "expected": 19,
+  "avg_chunks_per_patient": 26.0,
+  "missed": []
+ },
+ "hybrid@1": {
+  "recall": 0.579,
+  "found": 11,
+  "expected": 19,
+  "avg_chunks_per_patient": 6.3,
+  "missed": [
+   "F005 P005 simvastatin + amiodarone",
+   "F011 P011 rivaroxaban + rifampin",
+   "F013 P013 digoxin + amiodarone",
+   "F017 P017 dronedarone + clarithromycin",
+   "F027 P027 apixaban",
+   "F029 P029 enoxaparin",
+   "F033 P033 apixaban",
+   "F034 P033 simvastatin + amiodarone"
+  ]
+ },
+ "hybrid@3": {
+  "recall": 0.895,
+  "found": 17,
+  "expected": 19,
+  "avg_chunks_per_patient": 17.2,
+  "missed": [
+   "F029 P029 enoxaparin",
+   "F033 P033 apixaban"
+  ]
+ },
+ "hybrid@5": {
+  "recall": 1.0,
+  "found": 19,
+  "expected": 19,
+  "avg_chunks_per_patient": 25.9,
+  "missed": []
+ },
+ "embedding_backend": "sentence-transformers"
+}

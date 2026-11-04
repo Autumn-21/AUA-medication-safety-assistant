@@ -1,0 +1,118 @@
+{
+ "output": {
+  "flags": [
+   {
+    "flag_type": "contraindication",
+    "drugs": [
+     "lisinopril"
+    ],
+    "severity": "contraindicated",
+    "explanation": "Lisinopril is contraindicated in pregnancy because it can cause fetal harm, particularly when used during the second and third trimesters.",
+    "recommendation": "When pregnancy is detected, discontinue lisinopril as soon as possible.",
+    "citations": [
+     {
+      "chunk_id": "lisinopril::pregnancy::00",
+      "quote": "Lisinopril can cause fetal harm when administered to a pregnant woman. Use of drugs that act on the renin-angiotensin system during the second and third trimesters of pregnancy reduces fetal renal function"
+     }
+    ]
+   }
+  ],
+  "not_in_library": []
+ },
+ "usage": {
+  "input_tokens": 4599,
+  "output_tokens": 201,
+  "seconds": 25.2
+ },
+ "model": "gemini:gemini-3.1-flash-lite",
+ "raw_text": "{\n  \"flags\": [\n    {\n      \"flag_type\": \"contraindication\",\n      \"drugs\": [\n        \"lisinopril\"\n      ],\n      \"severity\": \"contraindicated\",\n      \"explanation\": \"Lisinopril is contraindicated in pregnancy because it can cause fetal harm, particularly when used during the second and third trimesters.\",\n      \"recommendation\": \"When pregnancy is detected, discontinue lisinopril as soon as possible.\",\n      \"citations\": [\n        {\n          \"chunk_id\": \"lisinopril::pregnancy::00\",\n          \"quote\": \"Lisinopril can cause fetal harm when administered to a pregnant woman. Use of drugs that act on the renin-angiotensin system during the second and third trimesters of pregnancy reduces fetal renal function\"\n        }\n      ]\n    }\n  ],\n  \"not_in_library\": []\n}",
+ "request": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system": "You are a clinical pharmacy decision-support assistant that reviews a patient's medicines for a\npharmacist. You must work ONLY from the FDA label excerpts provided with each request.\n\nGrounding rules (most important):\n- Every claim must be supported by the excerpts. Do not use outside knowledge for any warning.\n- Every flag must cite at least one excerpt by its exact id, with a quote of 8 to 40 consecutive words copied\n  exactly from that excerpt (same words, same order).\n- If the excerpts do not support a concern, do not flag it.\n\nFlag only problems that apply to THIS patient:\n1. interaction: two of the patient's medicines that the label warns about when used together\n   (including dose limits for a combination, e.g. \"do not exceed X mg with drug Y\").\n2. contraindication: a medicine unsafe for this patient because of a condition, pregnancy, allergy or kidney function.\n3. dose: a dose that does not match the label for this patient's kidney function (CrCl / eGFR given),\n   age or body weight.\nDo not flag general warnings that apply to every patient taking the drug unless a feature of this patient or one\nof their other medicines triggers them. Use the CrCl and eGFR values given; do not recalculate them.\nMedicines marked [NOT IN OUR LABEL LIBRARY] must not be flagged; list them in not_in_library.\nIf there is nothing to flag, return an empty flags list.\n\nSeverity (use the label's own wording):\n- \"contraindicated\": the label says contraindicated, do not use, or must not be used.\n- \"major\": the label says avoid, reduce or change the dose, do not exceed a dose, or not recommended.\n- \"moderate\": the label says monitor, use caution, or consider a dose change.\n\nBefore you flag anything, check these rules:\n- Quotes: copy ONE continuous passage from a single excerpt, word for word. Do not join sentences from different\n  places or change any word.\n- Dose limits: when a label gives a maximum or recommended dose (alone, with another drug, or for a level of kidney\n  function, age or weight), compare it with the patient's ACTUAL dose. Flag only if the patient's dose is above the\n  limit or does not match what the label recommends for this patient. A combination the label allows at the\n  patient's current dose is not a problem.\n- Pregnancy: flag a medicine only if its label says it is contraindicated in pregnancy, should be avoided or\n  discontinued, or has a boxed warning about harm to the fetus. Statements such as \"use only if the potential\n  benefit justifies the potential risk\" are not flags.\n- Check every medicine: for each one, look for interactions with each other medicine, contraindications for this\n  patient, and whether the dose fits this patient's kidney function, age and weight.",
+  "user": "PATIENT\nAge: 31  Sex: F  Weight: 68.0 kg\nSerum creatinine: 0.7 mg/dL  ->  CrCl (Cockcroft-Gault): 125.0 mL/min, eGFR (CKD-EPI 2021): 118.5 mL/min/1.73m2  (calculated by code)\nPregnant: Yes (14 weeks)\nConditions: chronic hypertension\nAllergies: none\nMedications:\n- lisinopril 10 mg once daily\n\nDrug names to use: lisinopril\n\nFDA LABEL EXCERPTS (10)\n<excerpt id=\"lisinopril::pregnancy::00\" drug=\"lisinopril\" section=\"Pregnancy\">\n8.1 Pregnancy Risk Summary Lisinopril can cause fetal harm when administered to a pregnant woman. Use of drugs that act on the renin-angiotensin system during the second and third trimesters of pregnancy reduces fetal renal function and increases fetal and neonatal morbidity and death. Most epidemiologic studies examining fetal abnormalities after exposure to antihypertensive use in the first trimester have not distinguished drugs affecting the renin-angiotensin system from other antihypertensive agents. When pregnancy is detected, discontinue lisinopril as soon as possible. The estimated background risk of major birth defects and miscarriage for the indicated population(s) are unknown. In the general U.S. population, the estimated background risk of major birth defects and miscarriage in clinically recognized pregnancies is 2% to 4% and 15% to 20%, respectively. Clinical Considerations Disease-associated maternal and/or embryo/fetal risk Hypertension in pregnancy increases the maternal risk for pre-eclampsia, gestational diabetes, premature delivery, and delivery complications (e.g., need for cesarean section, and post-partum hemorrhage). Hypertension increases the fetal risk for intrauterine growth restriction and intrauterine death. Pregnant women with hypertension should be carefully monitored and managed accordingly. Fetal/Neonatal Adverse Reactions Oligohydramnios in pregnant women who use drugs affecting the renin-angiotensin system in the second and third trimesters of pregnancy can result in the following: reduced fetal renal function leading to anuria and renal failure, fetal lung hypoplasia and skeletal deformations, including skull hypoplasia, hypotension, and death. In the unusual case that there is no appropriate alternative to therapy with drugs affecting the renin-angiotensin system for a particular patient,\n</excerpt>\n\n<excerpt id=\"lisinopril::use_in_specific_populations::00\" drug=\"lisinopril\" section=\"Use in Specific Populations\">\n8 USE IN SPECIFIC POPULATIONS \u2022 Lactation: Advise not to breastfeed. ( 8.2 ) \u2022 Race: Less antihypertensive effect in blacks than non blacks (8.6) 8.1 Pregnancy Risk Summary Lisinopril can cause fetal harm when administered to a pregnant woman. Use of drugs that act on the renin-angiotensin system during the second and third trimesters of pregnancy reduces fetal renal function and increases fetal and neonatal morbidity and death. Most epidemiologic studies examining fetal abnormalities after exposure to antihypertensive use in the first trimester have not distinguished drugs affecting the renin-angiotensin system from other antihypertensive agents. When pregnancy is detected, discontinue lisinopril as soon as possible. The estimated background risk of major birth defects and miscarriage for the indicated population(s) are unknown. In the general U.S. population, the estimated background risk of major birth defects and miscarriage in clinically recognized pregnancies is 2% to 4% and 15% to 20%, respectively. Clinical Considerations Disease-associated maternal and/or embryo/fetal risk Hypertension in pregnancy increases the maternal risk for pre-eclampsia, gestational diabetes, premature delivery, and delivery complications (e.g., need for cesarean section, and post-partum hemorrhage). Hypertension increases the fetal risk for intrauterine growth restriction and intrauterine death. Pregnant women with hypertension should be carefully monitored and managed accordingly. Fetal/Neonatal Adverse Reactions Oligohydramnios in pregnant women who use drugs affecting the renin-angiotensin system in the second and third trimesters of pregnancy can result in the following: reduced fetal renal function leading to anuria and renal failure, fetal lung hypoplasia and skeletal deformations, including skull hypoplasia,\n</excerpt>\n\n<excerpt id=\"lisinopril::warnings_and_cautions::00\" drug=\"lisinopril\" section=\"Warnings and Precautions\">\n5 WARNINGS AND PRECAUTIONS \u2022 Angioedema: Discontinue lisinopril, provide appropriate therapy and monitor until resolved (5.2) \u2022 Renal impairment: Monitor renal function periodically (5.3) \u2022 Hypotension: Patients with other heart or renal diseases have increased risk, monitor blood pressure after initiation (5.4) \u2022 Hyperkalemia: Monitor serum potassium periodically (5.5) \u2022 Cholestatic jaundice and hepatic failure: Monitor for jaundice or signs of liver failure (5.6) 5.1 Fetal Toxicity Lisinopril can cause fetal harm when administered to a pregnant woman. Use of drugs that act on the renin-angiotensin system during the second and third trimesters of pregnancy reduces fetal renal function and increases fetal and neonatal morbidity and death. Resulting oligohydramnios can be associated with fetal lung hypoplasia and skeletal deformations. Potential neonatal adverse effects include skull hypoplasia, anuria, hypotension, renal failure, and death. When pregnancy is detected, discontinue lisinopril as soon as possible [see Use in specific Populations (8.1) ]. 5.2 Angioedema and Anaphylactoid Reactions Patients taking concomitant mTOR inhibitor (e.g. temsirolimus, sirolimus, everolimus) therapy or a neprilysin inhibitor may be at increased risk for angioedema. [see Drug Interactions (7.7, 7.8) ] . Angioedema Head and Neck Angioedema Angioedema of the face, extremities, lips, tongue, glottis and/or larynx, including some fatal reactions, have occurred in patients treated with angiotensin converting enzyme inhibitors, including lisinopril, at any time during treatment. Patients with involvement of the tongue, glottis or larynx are likely to experience airway obstruction, especially those with a history of airway surgery. Lisinopril should be promptly discontinued and appropriate therapy and\n</excerpt>\n\n<excerpt id=\"lisinopril::use_in_specific_populations::01\" drug=\"lisinopril\" section=\"Use in Specific Populations\">\nmonitored and managed accordingly. Fetal/Neonatal Adverse Reactions Oligohydramnios in pregnant women who use drugs affecting the renin-angiotensin system in the second and third trimesters of pregnancy can result in the following: reduced fetal renal function leading to anuria and renal failure, fetal lung hypoplasia and skeletal deformations, including skull hypoplasia, hypotension, and death. In the unusual case that there is no appropriate alternative to therapy with drugs affecting the renin-angiotensin system for a particular patient, apprise the mother of the potential risk to the fetus. Perform serial ultrasound examinations to assess the intra-amniotic environment. Fetal testing may be appropriate, based on the week of pregnancy. Patients and physicians should be aware, however, that oligohydramnios may not appear until after the fetus has sustained irreversible injury. Closely observe infants with histories of in utero exposure to lisinopril for hypotension, oliguria, and hyperkalemia. If oliguria or hypotension occur in neonates with a history of in utero exposure to lisinopril, support blood pressure and renal perfusion. Exchange transfusions or dialysis may be required as a means of reversing hypotension and substituting for disordered renal function. 8.2 Lactation Risk Summary No data are available regarding the presence of lisinopril in human milk or the effects of lisinopril on the breast fed infant or on milk production. Lisinopril is present in rat milk. Because of the potential for severe adverse reactions in the breastfed infant, advise women not to breastfeed during treatment with lisinopril. 8.4 Pediatric Use Antihypertensive effects and safety of lisinopril have been\n</excerpt>\n\n<excerpt id=\"lisinopril::contraindications::00\" drug=\"lisinopril\" section=\"Contraindications\">\n4 CONTRAINDICATIONS Lisinopril is contraindicated in combination with a neprilysin inhibitor (e.g., sacubitril). Do not administer Lisinopril within 36 hours of switching to or from sacubitril/valsartan, a neprilysin inhibitor [see Warnings and Precautions (5.2)] . Lisinopril is contraindicated in patients with: \u2022 a history of angioedema or hypersensitivity related to previous treatment with an angiotensin converting enzyme inhibitor \u2022 hereditary or idiopathic angioedema Do not co-administer aliskiren with lisinopril in patients with diabetes [see Drug Interactions (7.4)] . \u2022 Angioedema or a history of hereditary or idiopathic angioedema ( 4 ) \u2022 Hypersensitivity ( 4 ) \u2022 Co-administration of aliskiren with lisinopril in patients with diabetes ( 4 , 7.4 )\n</excerpt>\n\n<excerpt id=\"lisinopril::dosage_and_administration::00\" drug=\"lisinopril\" section=\"Dosage and Administration\">\n2 DOSAGE AND ADMINISTRATION \u2022 Hypertension: Initial adult dose is 10 mg once daily. Titrate up to 40 mg daily based on blood pressure response. Initiate patients on diuretics at 5 mg once daily (2.1) \u2022 Pediatric patients with glomerular filtration rate > 30 mL/min/1.73 m 2 : Initial dose in patients 6 years of age and older is 0.07 mg per kg (up to 5 mg total) once daily (2.1) \u2022 Heart Failure: Initiate with 5 mg once daily. Increase dose as tolerated to 40 mg daily (2.2) \u2022 Acute Myocardial Infarction (MI): Give 5 mg within 24 hours of MI. Followed by 5 mg after 24 hours, then 10 mg once daily (2.3) \u2022 Renal Impairment: For patients with creatinine clearance \u2265 10 mL/min and \u2264 30 mL/min, halve usual initial dose. For patients with creatinine clearance < 10 mL/min or on hemodialysis, the recommended initial dose is 2.5 mg (2.4) 2.1 Hypertension Initial Therapy in adults: The recommended initial dose is 10 mg once a day. Dosage should be adjusted according to blood pressure response. The usual dosage range is 20 mg to 40 mg per day administered in a single daily dose. Doses up to 80 mg have been used but do not appear to give greater effect. Use with diuretics in adults If blood pressure is not controlled with lisinopril alone, a low dose of a diuretic may be added (e.g., hydrochlorothiazide, 12.5 mg). After the addition of a diuretic, it may be possible to\n</excerpt>\n\n<excerpt id=\"lisinopril::dosage_and_administration::03\" drug=\"lisinopril\" section=\"Dosage and Administration\">\n100 mmHg) a daily maintenance dose of 5 mg may be given with temporary reductions to 2.5 mg if needed. If prolonged hypotension occurs (systolic blood pressure < 90 mmHg for more than 1 hour) lisinopril should be withdrawn. 2.4 Dose in Patients with Renal Impairment No dose adjustment of lisinopril is required in patients with creatinine clearance > 30 mL/min. In patients with creatinine clearance \u2265 10 mL/min and \u2264 30 mL/min, reduce the initial dose of lisinopril to half of the usual recommended dose i.e., hypertension, 5 mg; systolic heart failure, 2.5 mg and acute MI, 2.5 mg. Up titrate as tolerated to a maximum of 40 mg daily. For patients on hemodialysis or creatinine clearance < 10 mL/min, the recommended initial dose is 2.5 mg once daily [see Use in Specific Populations (8.7) and Clinical Pharmacology (12.3) ] .\n</excerpt>\n\n<excerpt id=\"lisinopril::use_in_specific_populations::03\" drug=\"lisinopril\" section=\"Use in Specific Populations\">\n4,413 (47%) were 65 and over, while 1,656 (18%) were 75 and over. In this study, 4.8 % of patients aged 75 years and older discontinued lisinopril treatment because of renal dysfunction vs. 1.3% of patients younger than 75 years. No other differences in safety or effectiveness were observed between elderly and younger patients, but greater sensitivity of some older individuals cannot be ruled out. 8.6 Race ACE inhibitors, including lisinopril, have an effect on blood pressure that is less in black patients than in non blacks. 8.7 Renal Impairment Dose adjustment of lisinopril is required in patients undergoing hemodialysis or whose creatinine clearance is \u2264 30 mL/min. No dose adjustment of lisinopril is required in patients with creatinine clearance > 30 mL/min [see Dosage and Administration (2.4) and Clinical Pharmacology (12.3) ] .\n</excerpt>\n\n<excerpt id=\"lisinopril::dosage_and_administration::01\" drug=\"lisinopril\" section=\"Dosage and Administration\">\nmg have been used but do not appear to give greater effect. Use with diuretics in adults If blood pressure is not controlled with lisinopril alone, a low dose of a diuretic may be added (e.g., hydrochlorothiazide, 12.5 mg). After the addition of a diuretic, it may be possible to reduce the dose of lisinopril. The recommended starting dose in adult patients with hypertension taking diuretics is 5 mg once per day. Pediatric Patients 6 years of age and older with hypertension For pediatric patients with glomerular filtration rate > 30 mL/min/1.73m 2 , the recommended starting dose is 0.07 mg per kg once daily (up to 5 mg total). Dosage should be adjusted according to blood pressure response up to a maximum of 0.61 mg per kg (up to 40 mg) once daily. Doses above 0.61 mg per kg (or in excess of 40 mg) have not been studied in pediatric patients [see Clinical Pharmacology (12.3) ]. Lisinopril is not recommended in pediatric patients < 6 years or in pediatric patients with glomerular filtration rate < 30 mL/min/1.73m 2 [see Use in Specific Populations (8.4) and Clinical Studies (14.1) ]. 2.2 Heart Failure The recommended starting dose for lisinopril, when used with diuretics and (usually) digitalis as adjunctive therapy for systolic heart failure, is 5 mg once daily. The recommended starting dose in these patients with hyponatremia (serum sodium < 130 mEq/L) is 2.5 mg once daily. Increase as tolerated to a maximum of 40 mg once daily. Diuretic\n</excerpt>\n\n<excerpt id=\"lisinopril::dosage_and_administration::02\" drug=\"lisinopril\" section=\"Dosage and Administration\">\nwhen used with diuretics and (usually) digitalis as adjunctive therapy for systolic heart failure, is 5 mg once daily. The recommended starting dose in these patients with hyponatremia (serum sodium < 130 mEq/L) is 2.5 mg once daily. Increase as tolerated to a maximum of 40 mg once daily. Diuretic dose may need to be adjusted to help minimize hypovolemia, which may contribute to hypotension [see Warnings and Precautions (5.4) , and Drug Interactions (7.1) ] . The appearance of hypotension after the initial dose of lisinopril does not preclude subsequent careful dose titration with the drug, following effective management of the hypotension. 2.3 Reduction of Mortality in Acute Myocardial Infarction In hemodynamically stable patients within 24 hours of the onset of symptoms of acute myocardial infarction, give lisinopril 5 mg orally, followed by 5 mg after 24 hours, 10 mg after 48 hours and then 10 mg once daily. Dosing should continue for at least six weeks. Initiate therapy with 2.5 mg in patients with a low systolic blood pressure (\u2264 120 mmHg and > 100 mmHg) during the first 3 days after the infarct [see Warnings and Precautions (5.4) ] . If hypotension occurs (systolic blood pressure \u2264 100 mmHg) a daily maintenance dose of 5 mg may be given with temporary reductions to 2.5 mg if needed. If prolonged hypotension occurs (systolic blood pressure < 90 mmHg for more than 1 hour) lisinopril should be withdrawn. 2.4 Dose in Patients with Renal Impairment No dose adjustment of\n</excerpt>\n\nReview this patient's medicines and return the flags.",
+  "schema": {
+   "type": "object",
+   "properties": {
+    "flags": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "flag_type": {
+        "type": "string",
+        "enum": [
+         "interaction",
+         "contraindication",
+         "dose"
+        ]
+       },
+       "drugs": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "Drug names exactly as given in 'Drug names to use'"
+       },
+       "severity": {
+        "type": "string",
+        "enum": [
+         "contraindicated",
+         "major",
+         "moderate"
+        ]
+       },
+       "explanation": {
+        "type": "string",
+        "description": "One or two sentences for the pharmacist"
+       },
+       "recommendation": {
+        "type": "string",
+        "description": "What the label says to do"
+       },
+       "citations": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "chunk_id": {
+           "type": "string"
+          },
+          "quote": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "chunk_id",
+          "quote"
+         ],
+         "additionalProperties": false
+        }
+       }
+      },
+      "required": [
+       "flag_type",
+       "drugs",
+       "severity",
+       "explanation",
+       "recommendation",
+       "citations"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "not_in_library": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "flags",
+    "not_in_library"
+   ],
+   "additionalProperties": false
+  }
+ }
+}

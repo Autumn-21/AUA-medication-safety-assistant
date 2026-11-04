@@ -1,0 +1,50 @@
+{
+ "split": "dev",
+ "patients": 22,
+ "expected_flags": 19,
+ "TP": 14,
+ "FP": 11,
+ "FN": 5,
+ "precision": 0.56,
+ "recall": 0.7368,
+ "f1": 0.6364,
+ "grounded_TP": 13,
+ "grounded_precision": 0.52,
+ "grounded_recall": 0.6842,
+ "grounded_f1": 0.5909,
+ "by_type": {
+  "interaction": {
+   "TP": 11,
+   "FP": 1,
+   "FN": 1,
+   "grounded_TP": 11,
+   "precision": 0.9167,
+   "recall": 0.9167,
+   "f1": 0.9167
+  },
+  "contraindication": {
+   "TP": 2,
+   "FP": 10,
+   "FN": 1,
+   "grounded_TP": 1,
+   "precision": 0.1667,
+   "recall": 0.6667,
+   "f1": 0.2667
+  },
+  "dose": {
+   "TP": 1,
+   "FP": 0,
+   "FN": 3,
+   "grounded_TP": 1,
+   "precision": 1.0,
+   "recall": 0.25,
+   "f1": 0.4
+  }
+ },
+ "false_alarm_patients_among_safe": "3/5",
+ "severity_exact": 0.786,
+ "citation_accuracy": 0.929,
+ "citation_accuracy_exact": 0.429,
+ "warnings_shown_without_verified_source": "1/25",
+ "warnings_removed_by_citation_check": "0/25"
+}

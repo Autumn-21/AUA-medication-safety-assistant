@@ -1,0 +1,105 @@
+{
+ "output": {
+  "flags": [],
+  "not_in_library": [
+   "levothyroxine",
+   "albuterol inhaler"
+  ]
+ },
+ "usage": {
+  "input_tokens": 1044,
+  "output_tokens": 38,
+  "seconds": 11.8
+ },
+ "model": "gemini:gemini-3.1-flash-lite",
+ "raw_text": "{\n  \"flags\": [],\n  \"not_in_library\": [\n    \"levothyroxine\",\n    \"albuterol inhaler\"\n  ]\n}",
+ "request": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system": "You are a clinical pharmacy decision-support assistant that reviews a patient's medicines for a\npharmacist. You must work ONLY from the FDA label excerpts provided with each request.\n\nGrounding rules (most important):\n- Every claim must be supported by the excerpts. Do not use outside knowledge for any warning.\n- Every flag must cite at least one excerpt by its exact id, with a quote of 8 to 40 consecutive words copied\n  exactly from that excerpt (same words, same order).\n- If the excerpts do not support a concern, do not flag it.\n\nFlag only problems that apply to THIS patient:\n1. interaction: two of the patient's medicines that the label warns about when used together\n   (including dose limits for a combination, e.g. \"do not exceed X mg with drug Y\").\n2. contraindication: a medicine unsafe for this patient because of a condition, pregnancy, allergy or kidney function.\n3. dose: a dose that does not match the label for this patient's kidney function (CrCl / eGFR given),\n   age or body weight.\nDo not flag general warnings that apply to every patient taking the drug unless a feature of this patient or one\nof their other medicines triggers them. Use the CrCl and eGFR values given; do not recalculate them.\nMedicines marked [NOT IN OUR LABEL LIBRARY] must not be flagged; list them in not_in_library.\nIf there is nothing to flag, return an empty flags list.\n\nSeverity (use the label's own wording):\n- \"contraindicated\": the label says contraindicated, do not use, or must not be used.\n- \"major\": the label says avoid, reduce or change the dose, do not exceed a dose, or not recommended.\n- \"moderate\": the label says monitor, use caution, or consider a dose change.\n\nBefore you flag anything, check these rules:\n- Quotes: copy ONE continuous passage from a single excerpt, word for word. Do not join sentences from different\n  places or change any word.\n- Dose limits: when a label gives a maximum or recommended dose (alone, with another drug, or for a level of kidney\n  function, age or weight), compare it with the patient's ACTUAL dose. Flag only if the patient's dose is above the\n  limit or does not match what the label recommends for this patient. A combination the label allows at the\n  patient's current dose is not a problem.\n- Pregnancy: flag a medicine only if its label says it is contraindicated in pregnancy, should be avoided or\n  discontinued, or has a boxed warning about harm to the fetus. Statements such as \"use only if the potential\n  benefit justifies the potential risk\" are not flags.\n- Check every medicine: for each one, look for interactions with each other medicine, contraindications for this\n  patient, and whether the dose fits this patient's kidney function, age and weight.",
+  "user": "PATIENT\nAge: 55  Sex: F  Weight: 70.0 kg\nSerum creatinine: 0.8 mg/dL  ->  CrCl (Cockcroft-Gault): 87.8 mL/min, eGFR (CKD-EPI 2021): 87.0 mL/min/1.73m2  (calculated by code)\nPregnant: No\nConditions: hypothyroidism; asthma\nAllergies: none\nMedications:\n- levothyroxine 50 mcg once daily  [NOT IN OUR LABEL LIBRARY]\n- albuterol inhaler 2 puffs as needed  [NOT IN OUR LABEL LIBRARY]\n\nDrug names to use: (none)\n\nFDA LABEL EXCERPTS (0)\n\n\nReview this patient's medicines and return the flags.",
+  "schema": {
+   "type": "object",
+   "properties": {
+    "flags": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "flag_type": {
+        "type": "string",
+        "enum": [
+         "interaction",
+         "contraindication",
+         "dose"
+        ]
+       },
+       "drugs": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "Drug names exactly as given in 'Drug names to use'"
+       },
+       "severity": {
+        "type": "string",
+        "enum": [
+         "contraindicated",
+         "major",
+         "moderate"
+        ]
+       },
+       "explanation": {
+        "type": "string",
+        "description": "One or two sentences for the pharmacist"
+       },
+       "recommendation": {
+        "type": "string",
+        "description": "What the label says to do"
+       },
+       "citations": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "chunk_id": {
+           "type": "string"
+          },
+          "quote": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "chunk_id",
+          "quote"
+         ],
+         "additionalProperties": false
+        }
+       }
+      },
+      "required": [
+       "flag_type",
+       "drugs",
+       "severity",
+       "explanation",
+       "recommendation",
+       "citations"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "not_in_library": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "flags",
+    "not_in_library"
+   ],
+   "additionalProperties": false
+  }
+ }
+}

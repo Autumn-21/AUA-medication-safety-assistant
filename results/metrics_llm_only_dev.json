@@ -1,0 +1,53 @@
+{
+ "split": "dev",
+ "patients": 22,
+ "expected_flags": 19,
+ "TP": 17,
+ "FP": 1,
+ "FN": 2,
+ "precision": 0.9444,
+ "recall": 0.8947,
+ "f1": 0.9189,
+ "grounded_TP": 0,
+ "grounded_precision": 0.0,
+ "grounded_recall": 0.0,
+ "grounded_f1": 0.0,
+ "by_type": {
+  "interaction": {
+   "TP": 11,
+   "FP": 1,
+   "FN": 1,
+   "grounded_TP": 0,
+   "precision": 0.9167,
+   "recall": 0.9167,
+   "f1": 0.9167
+  },
+  "contraindication": {
+   "TP": 3,
+   "FP": 0,
+   "FN": 0,
+   "grounded_TP": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0
+  },
+  "dose": {
+   "TP": 3,
+   "FP": 0,
+   "FN": 1,
+   "grounded_TP": 0,
+   "precision": 1.0,
+   "recall": 0.75,
+   "f1": 0.8571
+  }
+ },
+ "false_alarm_patients_among_safe": "1/5",
+ "severity_exact": 0.941,
+ "citation_accuracy": 0.0,
+ "citation_accuracy_exact": 0.0,
+ "warnings_shown_without_verified_source": "19/19",
+ "warnings_removed_by_citation_check": "0/19",
+ "tokens_in": 16632,
+ "tokens_out": 3994,
+ "model": "gemini:gemini-3.1-flash-lite"
+}

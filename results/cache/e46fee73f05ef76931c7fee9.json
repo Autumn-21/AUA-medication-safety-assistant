@@ -1,0 +1,118 @@
+{
+ "output": {
+  "flags": [
+   {
+    "flag_type": "dose",
+    "drugs": [
+     "edoxaban"
+    ],
+    "severity": "major",
+    "explanation": "The patient has a CrCl of 148.4 mL/min, which exceeds the 95 mL/min threshold for which edoxaban is indicated in nonvalvular atrial fibrillation. The label states that edoxaban should not be used in these patients due to an increased rate of ischemic stroke.",
+    "recommendation": "Do not use SAVAYSA in patients with CrCL > 95 mL/min. In these patients another anticoagulant should be used.",
+    "citations": [
+     {
+      "chunk_id": "edoxaban::dosage_and_administration::00",
+      "quote": "Do not use SAVAYSA in patients with CrCL > 95 mL/min"
+     }
+    ]
+   }
+  ],
+  "not_in_library": []
+ },
+ "usage": {
+  "input_tokens": 4702,
+  "output_tokens": 229,
+  "seconds": 13.4
+ },
+ "model": "gemini:gemini-3.1-flash-lite",
+ "raw_text": "{\n  \"flags\": [\n    {\n      \"flag_type\": \"dose\",\n      \"drugs\": [\n        \"edoxaban\"\n      ],\n      \"severity\": \"major\",\n      \"explanation\": \"The patient has a CrCl of 148.4 mL/min, which exceeds the 95 mL/min threshold for which edoxaban is indicated in nonvalvular atrial fibrillation. The label states that edoxaban should not be used in these patients due to an increased rate of ischemic stroke.\",\n      \"recommendation\": \"Do not use SAVAYSA in patients with CrCL > 95 mL/min. In these patients another anticoagulant should be used.\",\n      \"citations\": [\n        {\n          \"chunk_id\": \"edoxaban::dosage_and_administration::00\",\n          \"quote\": \"Do not use SAVAYSA in patients with CrCL > 95 mL/min\"\n        }\n      ]\n    }\n  ],\n  \"not_in_library\": []\n}",
+ "request": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system": "You are a clinical pharmacy decision-support assistant that reviews a patient's medicines for a\npharmacist. You must work ONLY from the FDA label excerpts provided with each request.\n\nGrounding rules (most important):\n- Every claim must be supported by the excerpts. Do not use outside knowledge for any warning.\n- Every flag must cite at least one excerpt by its exact id, with a quote of 8 to 40 consecutive words copied\n  exactly from that excerpt (same words, same order).\n- If the excerpts do not support a concern, do not flag it.\n\nFlag only problems that apply to THIS patient:\n1. interaction: two of the patient's medicines that the label warns about when used together\n   (including dose limits for a combination, e.g. \"do not exceed X mg with drug Y\").\n2. contraindication: a medicine unsafe for this patient because of a condition, pregnancy, allergy or kidney function.\n3. dose: a dose that does not match the label for this patient's kidney function (CrCl / eGFR given),\n   age or body weight.\nDo not flag general warnings that apply to every patient taking the drug unless a feature of this patient or one\nof their other medicines triggers them. Use the CrCl and eGFR values given; do not recalculate them.\nMedicines marked [NOT IN OUR LABEL LIBRARY] must not be flagged; list them in not_in_library.\nIf there is nothing to flag, return an empty flags list.\n\nSeverity (use the label's own wording):\n- \"contraindicated\": the label says contraindicated, do not use, or must not be used.\n- \"major\": the label says avoid, reduce or change the dose, do not exceed a dose, or not recommended.\n- \"moderate\": the label says monitor, use caution, or consider a dose change.\n\nBefore you flag anything, check these rules:\n- Quotes: copy ONE continuous passage from a single excerpt, word for word. Do not join sentences from different\n  places or change any word.\n- Dose limits: when a label gives a maximum or recommended dose (alone, with another drug, or for a level of kidney\n  function, age or weight), compare it with the patient's ACTUAL dose. Flag only if the patient's dose is above the\n  limit or does not match what the label recommends for this patient. A combination the label allows at the\n  patient's current dose is not a problem.\n- Pregnancy: flag a medicine only if its label says it is contraindicated in pregnancy, should be avoided or\n  discontinued, or has a boxed warning about harm to the fetus. Statements such as \"use only if the potential\n  benefit justifies the potential risk\" are not flags.\n- Check every medicine: for each one, look for interactions with each other medicine, contraindications for this\n  patient, and whether the dose fits this patient's kidney function, age and weight.",
+  "user": "PATIENT\nAge: 52  Sex: M  Weight: 85.0 kg\nSerum creatinine: 0.7 mg/dL  ->  CrCl (Cockcroft-Gault): 148.4 mL/min, eGFR (CKD-EPI 2021): 110.9 mL/min/1.73m2  (calculated by code)\nPregnant: No\nConditions: atrial fibrillation\nAllergies: none\nMedications:\n- edoxaban 60 mg once daily\n\nDrug names to use: edoxaban\n\nFDA LABEL EXCERPTS (10)\n<excerpt id=\"edoxaban::boxed_warning::00\" drug=\"edoxaban\" section=\"Boxed Warning\">\nWARNING: (A) REDUCED EFFICACY IN NONVALVULAR ATRIAL FIBRILLATION PATIENTS WITH CREATININE CLEARANCE (CRCL) > 95 ML/MIN (B) PREMATURE DISCONTINUATION OF SAVAYSA INCREASES THE RISK OF ISCHEMIC EVENTS (C) SPINAL/EPIDURAL HEMATOMA WARNING: (A) REDUCED EFFICACY IN NONVALVULAR ATRIAL FIBRILLATION PATIENTS WITH CREATININE CLEARANCE (CRCL) > 95 ML/MIN (B) PREMATURE DISCONTINUATION OF SAVAYSA INCREASES THE RISK OF ISCHEMIC EVENTS (C) SPINAL/EPIDURAL HEMATOMA See full prescribing information for complete boxed warning. (A) REDUCED EFFICACY IN NONVALVULAR ATRIAL FIBRILLATION PATIENTS WITH CRCL > 95 ML/MIN: SAVAYSA should not be used in patients with CrCL > 95 mL/min. In the ENGAGE AF-TIMI 48 study, nonvalvular atrial fibrillation patients with CrCL > 95 mL/min had an increased rate of ischemic stroke with SAVAYSA 60 mg once daily compared to patients treated with warfarin. In these patients another anticoagulant should be used ( 5.1 ). (B) PREMATURE DISCONTINUATION OF SAVAYSA INCREASES THE RISK OF ISCHEMIC EVENTS: Premature discontinuation of any oral anticoagulant in the absence of adequate alternative anticoagulation increases the risk of ischemic events. If SAVAYSA is discontinued for a reason other than pathological bleeding or completion of a course of therapy, consider coverage with another anticoagulant as described in the transition guidance ( 2.4 , 5.2 , 14 ). (C) SPINAL/EPIDURAL HEMATOMA: Epidural or spinal hematomas may occur in patients treated with SAVAYSA who are receiving neuraxial anesthesia or undergoing spinal puncture. These hematomas may result in long-term or permanent paralysis. Consider these risks when scheduling patients for spinal procedures ( 5.4 ). A. REDUCED\n</excerpt>\n\n<excerpt id=\"edoxaban::contraindications::00\" drug=\"edoxaban\" section=\"Contraindications\">\n4 CONTRAINDICATIONS SAVAYSA is contraindicated in patients with: Active pathological bleeding [see Warnings and Precautions (5.3) and Adverse Reactions (6.1) ] . Active pathological bleeding ( 4 )\n</excerpt>\n\n<excerpt id=\"edoxaban::warnings_and_cautions::00\" drug=\"edoxaban\" section=\"Warnings and Precautions\">\n5 WARNINGS AND PRECAUTIONS Bleeding: Serious and potentially fatal bleeding. Promptly evaluate signs and symptoms of blood loss ( 5.3 ) Mechanical Heart Valves or Moderate to Severe Mitral Stenosis: Use is not recommended ( 5.5 ) Increased Risk of Thrombosis in Patients with Triple Positive Antiphospholipid Syndrome: SAVAYSA use not recommended. ( 5.6 ) 5.1 Reduced Efficacy in Nonvalvular Atrial Fibrillation Patients with CrCL > 95 mL/min SAVAYSA should not be used in patients with CrCL > 95 mL/min. In the randomized ENGAGE AF-TIMI 48 study, NVAF patients with CrCL > 95 mL/min had an increased rate of ischemic stroke with SAVAYSA 60 mg daily compared to patients treated with warfarin. In these patients another anticoagulant should be used [see Dosage and Administration (2.1) and Clinical Studies (14.1) ] . 5.2 Increased Risk of Stroke with Discontinuation of SAVAYSA in Patients with Nonvalvular Atrial Fibrillation Premature discontinuation of any oral anticoagulant in the absence of adequate alternative anticoagulation increases the risk of ischemic events. If SAVAYSA is discontinued for a reason other than pathological bleeding or completion of a course of therapy, consider coverage with another anticoagulant as described in the transition guidance [see Dosage and Administration (2.4) and Clinical Studies (14.1) ] . 5.3 Risk of Bleeding SAVAYSA increases the risk of bleeding and can cause serious and potentially fatal bleeding. Promptly evaluate any signs or symptoms of blood loss. Discontinue SAVAYSA in patients with active pathological bleeding. Concomitant use of drugs affecting hemostasis may increase the risk\n</excerpt>\n\n<excerpt id=\"edoxaban::boxed_warning::01\" drug=\"edoxaban\" section=\"Boxed Warning\">\n5.2 , 14 ). (C) SPINAL/EPIDURAL HEMATOMA: Epidural or spinal hematomas may occur in patients treated with SAVAYSA who are receiving neuraxial anesthesia or undergoing spinal puncture. These hematomas may result in long-term or permanent paralysis. Consider these risks when scheduling patients for spinal procedures ( 5.4 ). A. REDUCED EFFICACY IN NONVALVULAR ATRIAL FIBRILLATION PATIENTS WITH CRCL > 95 ML/MIN SAVAYSA should not be used in patients with CrCL > 95 mL/min. In the ENGAGE AF-TIMI 48 study, nonvalvular atrial fibrillation patients with CrCL > 95 mL/min had an increased rate of ischemic stroke with SAVAYSA 60 mg once daily compared to patients treated with warfarin. In these patients another anticoagulant should be used [see Dosage and Administration (2.1) , Warnings and Precautions (5.1) , and Clinical Studies (14.1) ] . B. PREMATURE DISCONTINUATION OF SAVAYSA INCREASES THE RISK OF ISCHEMIC EVENTS Premature discontinuation of any oral anticoagulant in the absence of adequate alternative anticoagulation increases the risk of ischemic events. If SAVAYSA is discontinued for a reason other than pathological bleeding or completion of a course of therapy, consider coverage with another anticoagulant as described in the transition guidance [see Dosage and Administration (2.4) , Warnings and Precautions (5.2) , and Clinical Studies (14.1) ] . C. SPINAL/EPIDURAL HEMATOMA Epidural or spinal hematomas may occur in patients treated with SAVAYSA who are receiving neuraxial anesthesia or undergoing spinal puncture. These hematomas may result in long-term or permanent paralysis. Consider these risks when scheduling patients for spinal procedures. Factors\n</excerpt>\n\n<excerpt id=\"edoxaban::warnings_and_cautions::03\" drug=\"edoxaban\" section=\"Warnings and Precautions\">\nthe potential benefit versus the risk in anticoagulated patients or in patients to be anticoagulated for thromboprophylaxis. 5.5 Patients with Mechanical Heart Valves or Moderate to Severe Mitral Stenosis The safety and efficacy of SAVAYSA has not been studied in patients with mechanical heart valves or moderate to severe mitral stenosis. The use of SAVAYSA is not recommended in these patients [see Clinical Studies (14.1) ] . 5.6 Increased Risk of Thrombosis in Patients with Triple Positive Antiphospholipid Syndrome Direct-acting oral anticoagulants (DOACs), including SAVAYSA, are not recommended for use in patients with triple positive antiphospholipid syndrome (APS). For patients with APS (especially those who are triple positive [positive for lupus anticoagulant, anticardiolipin antibodies, and anti-beta 2-glycoprotein I antibodies]), treatment with DOACs has been associated with increased rates of recurrent thrombotic events compared with vitamin K antagonist therapy.\n</excerpt>\n\n<excerpt id=\"edoxaban::dosage_and_administration::00\" drug=\"edoxaban\" section=\"Dosage and Administration\">\n2 DOSAGE AND ADMINISTRATION Treatment of NVAF: Assess CrCL before initiating therapy ( 2.1 ) The recommended dose is 60 mg once daily in patients with CrCL >50 to \u2264 95 mL/min. Do not use SAVAYSA in patients with CrCL > 95 mL/min ( 2.1 ) Reduce dose to 30 mg once daily in patients with creatinine clearance 15 to 50 mL/min ( 2.1 ) Treatment of DVT and PE: The recommended dose is 60 mg once daily ( 2.2 ) Reduce dose to 30 mg once daily for patients with CrCL 15 to 50 mL/min or body weight less than or equal to 60 kg or who use certain P-gp inhibitors ( 2.2 ) 2.1 Nonvalvular Atrial Fibrillation The recommended dose of SAVAYSA is 60 mg taken orally once daily [see Warnings and Precautions (5.1) and Clinical Studies (14.1) ] . Assess creatinine clearance, as calculated using the Cockcroft-Gault equation Cockcroft-Gault CrCL = (140-age) \u00d7 (weight in kg) \u00d7 (0.85 if female) / (72 \u00d7 creatinine in mg/dL). , before initiating therapy with SAVAYSA. Do not use SAVAYSA in patients with CrCL > 95 mL/min. Reduce SAVAYSA dose to 30 mg once daily in patients with CrCL 15 to 50 mL/min [see Use in Specific Populations (8.6) , and Clinical Pharmacology (12.3) ] . 2.2 Treatment of Deep Vein Thrombosis and Pulmonary Embolism The recommended dose of SAVAYSA is 60 mg taken orally once daily following 5 to 10 days of initial therapy with a parenteral anticoagulant [see Clinical\n</excerpt>\n\n<excerpt id=\"edoxaban::use_in_specific_populations::04\" drug=\"edoxaban\" section=\"Use in Specific Populations\">\nblood levels are increased in patients with poor renal function compared to those with higher renal function. Reduce SAVAYSA dose to 30 mg once daily in patients with CrCL 15-50 mL/min. There are limited clinical data with SAVAYSA in patients with CrCL < 15 mL/min; SAVAYSA is therefore not recommended in these patients. Hemodialysis does not significantly contribute to SAVAYSA clearance [see Dosage and Administration (2.1 , 2.2) and Clinical Pharmacology (12.3) ] . As renal function improves and edoxaban blood levels decrease, the risk for ischemic stroke increases in patients with NVAF [see Indications and Usage (1.1) , Dosage and Administration (2.1) , and Clinical Studies (14.1) ] . 8.7 Hepatic Impairment The use of SAVAYSA in patients with moderate or severe hepatic impairment (Child-Pugh B and C) is not recommended as these patients may have intrinsic coagulation abnormalities. No dose reduction is required in patients with mild hepatic impairment (Child-Pugh A) [see Clinical Pharmacology (12.3) ] . 8.8 Low Body Weight Consideration for Patients Treated for DVT and/or PE Based on the clinical experience from the Hokusai VTE study, reduce SAVAYSA dose to 30 mg in patients with body weight less than or equal to 60 kg [see Dosage and Administration (2.2) and Clinical Studies (14.2) ] .\n</excerpt>\n\n<excerpt id=\"edoxaban::use_in_specific_populations::03\" drug=\"edoxaban\" section=\"Use in Specific Populations\">\nshould be assessed in females of reproductive potential and those with abnormal uterine bleeding. 8.4 Pediatric Use The safety and effectiveness of SAVAYSA have not been established in pediatric patients with confirmed VTE (PE and/or DVT). Effectiveness was not demonstrated in an adequate and well-controlled study conducted in 145 SAVAYSA-treated pediatric patients, from birth to less than 18 years of age with confirmed VTE (PE and/or DVT), treated for 3 months up to a maximum of 12 months. 8.5 Geriatric Use Of the total patients in the ENGAGE AF-TIMI 48 study, 5182 (74%) were 65 years and older, while 2838 (41%) were 75 years and older. In Hokusai VTE, 1334 (32%) patients were 65 years and older, while 560 (14%) patients were 75 years and older. In the Hokusai VTE Cancer Study, 539 (52%) patients were 65 years and older and 176 (17%) were 75 years and older. In clinical trials the efficacy and safety of SAVAYSA in elderly (65 years or older) and younger patients were similar [see Adverse Reactions (6.1) , Clinical Pharmacology (12.3) , and Clinical Studies (14) ] . 8.6 Renal Impairment Renal clearance accounts for approximately 50% of the total clearance of edoxaban. Consequently, edoxaban blood levels are increased in patients with poor renal function compared to those with higher renal function. Reduce SAVAYSA dose to 30 mg once daily in patients with CrCL 15-50 mL/min. There are limited clinical data with SAVAYSA in patients with CrCL < 15 mL/min; SAVAYSA is therefore not recommended\n</excerpt>\n\n<excerpt id=\"edoxaban::dosage_and_administration::01\" drug=\"edoxaban\" section=\"Dosage and Administration\">\n50 mL/min [see Use in Specific Populations (8.6) , and Clinical Pharmacology (12.3) ] . 2.2 Treatment of Deep Vein Thrombosis and Pulmonary Embolism The recommended dose of SAVAYSA is 60 mg taken orally once daily following 5 to 10 days of initial therapy with a parenteral anticoagulant [see Clinical Studies (14.2) ] . Reduce SAVAYSA dose to 30 mg once daily in patients with CrCL 15 to 50 mL/min, patients who weigh less than or equal to 60 kg, or patients who are taking certain concomitant P-gp inhibitor medications [see Clinical Studies (14.2) ] . 2.3 Administration Information If a dose of SAVAYSA is missed, the dose should be taken as soon as possible on the same day. Dosing should resume the next day according to the normal dosing schedule. The dose should not be doubled to make up for a missed dose. SAVAYSA can be taken without regard to food [see Clinical Pharmacology (12.3) ] . 2.4 Transition to or from SAVAYSA Transition to SAVAYSA From To Recommendation Warfarin or other Vitamin K Antagonists SAVAYSA Discontinue warfarin and start SAVAYSA when the INR is \u2264 2.5 Oral anticoagulants other than warfarin or other Vitamin K Antagonists SAVAYSA Discontinue current oral anticoagulant and start SAVAYSA at the time of the next scheduled dose of the other oral anticoagulant Low Molecular Weight Heparin (LMWH) SAVAYSA Discontinue LMWH and start SAVAYSA at the time of the next scheduled administration of LMWH Unfractionated heparin SAVAYSA Discontinue the infusion and start SAVAYSA 4\n</excerpt>\n\n<excerpt id=\"edoxaban::dosage_and_administration::02\" drug=\"edoxaban\" section=\"Dosage and Administration\">\ncurrent oral anticoagulant and start SAVAYSA at the time of the next scheduled dose of the other oral anticoagulant Low Molecular Weight Heparin (LMWH) SAVAYSA Discontinue LMWH and start SAVAYSA at the time of the next scheduled administration of LMWH Unfractionated heparin SAVAYSA Discontinue the infusion and start SAVAYSA 4 hours later Transition from SAVAYSA From To Recommendation Abbreviations: INR=International Normalized Ratio SAVAYSA Warfarin Oral option : For patients taking 60 mg of SAVAYSA, reduce the dose to 30 mg and begin warfarin concomitantly. For patients receiving 30 mg of SAVAYSA, reduce the dose to 15 mg and begin warfarin concomitantly. INR must be measured at least weekly and just prior to the daily dose of SAVAYSA to minimize the influence of SAVAYSA on INR measurements. Once a stable INR \u2265 2.0 is achieved, SAVAYSA should be discontinued and the warfarin continued SAVAYSA Warfarin Parenteral option : Discontinue SAVAYSA and administer a parenteral anticoagulant and warfarin at the time of the next scheduled SAVAYSA dose. Once a stable INR \u2265 2.0 is achieved the parenteral anticoagulant should be discontinued and the warfarin continued SAVAYSA Non-Vitamin-K-Dependent Oral anticoagulants Discontinue SAVAYSA and start the other oral anticoagulant at the time of the next dose of SAVAYSA SAVAYSA Parenteral anticoagulants Discontinue SAVAYSA and start the parenteral anticoagulant at the time of the next dose of SAVAYSA 2.5 Discontinuation for Surgery and Other Interventions Discontinue SAVAYSA at least 24 hours before invasive or surgical procedures because of the risk of bleeding [see Warnings and\n</excerpt>\n\nReview this patient's medicines and return the flags.",
+  "schema": {
+   "type": "object",
+   "properties": {
+    "flags": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "flag_type": {
+        "type": "string",
+        "enum": [
+         "interaction",
+         "contraindication",
+         "dose"
+        ]
+       },
+       "drugs": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "Drug names exactly as given in 'Drug names to use'"
+       },
+       "severity": {
+        "type": "string",
+        "enum": [
+         "contraindicated",
+         "major",
+         "moderate"
+        ]
+       },
+       "explanation": {
+        "type": "string",
+        "description": "One or two sentences for the pharmacist"
+       },
+       "recommendation": {
+        "type": "string",
+        "description": "What the label says to do"
+       },
+       "citations": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "chunk_id": {
+           "type": "string"
+          },
+          "quote": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "chunk_id",
+          "quote"
+         ],
+         "additionalProperties": false
+        }
+       }
+      },
+      "required": [
+       "flag_type",
+       "drugs",
+       "severity",
+       "explanation",
+       "recommendation",
+       "citations"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "not_in_library": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "flags",
+    "not_in_library"
+   ],
+   "additionalProperties": false
+  }
+ }
+}

@@ -1,0 +1,118 @@
+{
+ "output": {
+  "flags": [
+   {
+    "flag_type": "dose",
+    "drugs": [
+     "dabigatran"
+    ],
+    "severity": "major",
+    "explanation": "The patient has a CrCl of 29.7 mL/min, which falls into the severe renal impairment category (15 to 30 mL/min). The current dose of 150 mg twice daily exceeds the recommended dose of 75 mg twice daily for this level of renal function.",
+    "recommendation": "Reduce the dose of dabigatran to 75 mg twice daily for patients with severe renal impairment (CrCl 15 to 30 mL/min).",
+    "citations": [
+     {
+      "chunk_id": "dabigatran::dosage_and_administration::02",
+      "quote": "For patients with severe renal impairment (CrCl 15 to 30 mL/min), the recommended dosage of dabigatran etexilate capsules are 75 mg twice daily"
+     }
+    ]
+   }
+  ],
+  "not_in_library": []
+ },
+ "usage": {
+  "input_tokens": 4920,
+  "output_tokens": 256,
+  "seconds": 39.7
+ },
+ "model": "gemini:gemini-3.1-flash-lite",
+ "raw_text": "{\n  \"flags\": [\n    {\n      \"flag_type\": \"dose\",\n      \"drugs\": [\n        \"dabigatran\"\n      ],\n      \"severity\": \"major\",\n      \"explanation\": \"The patient has a CrCl of 29.7 mL/min, which falls into the severe renal impairment category (15 to 30 mL/min). The current dose of 150 mg twice daily exceeds the recommended dose of 75 mg twice daily for this level of renal function.\",\n      \"recommendation\": \"Reduce the dose of dabigatran to 75 mg twice daily for patients with severe renal impairment (CrCl 15 to 30 mL/min).\",\n      \"citations\": [\n        {\n          \"chunk_id\": \"dabigatran::dosage_and_administration::02\",\n          \"quote\": \"For patients with severe renal impairment (CrCl 15 to 30 mL/min), the recommended dosage of dabigatran etexilate capsules are 75 mg twice daily\"\n        }\n      ]\n    }\n  ],\n  \"not_in_library\": []\n}",
+ "request": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system": "You are a clinical pharmacy decision-support assistant that reviews a patient's medicines for a\npharmacist. You must work ONLY from the FDA label excerpts provided with each request.\n\nGrounding rules (most important):\n- Every claim must be supported by the excerpts. Do not use outside knowledge for any warning.\n- Every flag must cite at least one excerpt by its exact id, with a quote of 8 to 40 consecutive words copied\n  exactly from that excerpt (same words, same order).\n- If the excerpts do not support a concern, do not flag it.\n\nFlag only problems that apply to THIS patient:\n1. interaction: two of the patient's medicines that the label warns about when used together\n   (including dose limits for a combination, e.g. \"do not exceed X mg with drug Y\").\n2. contraindication: a medicine unsafe for this patient because of a condition, pregnancy, allergy or kidney function.\n3. dose: a dose that does not match the label for this patient's kidney function (CrCl / eGFR given),\n   age or body weight.\nDo not flag general warnings that apply to every patient taking the drug unless a feature of this patient or one\nof their other medicines triggers them. Use the CrCl and eGFR values given; do not recalculate them.\nMedicines marked [NOT IN OUR LABEL LIBRARY] must not be flagged; list them in not_in_library.\nIf there is nothing to flag, return an empty flags list.\n\nSeverity (use the label's own wording):\n- \"contraindicated\": the label says contraindicated, do not use, or must not be used.\n- \"major\": the label says avoid, reduce or change the dose, do not exceed a dose, or not recommended.\n- \"moderate\": the label says monitor, use caution, or consider a dose change.\n\nBefore you flag anything, check these rules:\n- Quotes: copy ONE continuous passage from a single excerpt, word for word. Do not join sentences from different\n  places or change any word.\n- Dose limits: when a label gives a maximum or recommended dose (alone, with another drug, or for a level of kidney\n  function, age or weight), compare it with the patient's ACTUAL dose. Flag only if the patient's dose is above the\n  limit or does not match what the label recommends for this patient. A combination the label allows at the\n  patient's current dose is not a problem.\n- Pregnancy: flag a medicine only if its label says it is contraindicated in pregnancy, should be avoided or\n  discontinued, or has a boxed warning about harm to the fetus. Statements such as \"use only if the potential\n  benefit justifies the potential risk\" are not flags.\n- Check every medicine: for each one, look for interactions with each other medicine, contraindications for this\n  patient, and whether the dose fits this patient's kidney function, age and weight.",
+  "user": "PATIENT\nAge: 79  Sex: M  Weight: 70.0 kg\nSerum creatinine: 2.0 mg/dL  ->  CrCl (Cockcroft-Gault): 29.7 mL/min, eGFR (CKD-EPI 2021): 33.3 mL/min/1.73m2  (calculated by code)\nPregnant: No\nConditions: atrial fibrillation\nAllergies: none\nMedications:\n- dabigatran 150 mg twice daily\n\nDrug names to use: dabigatran\n\nFDA LABEL EXCERPTS (10)\n<excerpt id=\"dabigatran::warnings_and_cautions::03\" drug=\"dabigatran\" section=\"Warnings and Precautions\">\n(recently implanted or implanted more than three months prior to enrollment) were randomized to dose-adjusted warfarin or 150 mg, 220 mg, or 300 mg of dabigatran etexilate capsules twice a day. RE-ALIGN was terminated early due to the occurrence of significantly more thromboembolic events (valve thrombosis, stroke, transient ischemic attack, and myocardial infarction) and an excess of major bleeding (predominantly post-operative pericardial effusions requiring intervention for hemodynamic compromise) in the dabigatran etexilate capsules treatment arm as compared to the warfarin treatment arm. These bleeding and thromboembolic events were seen both in patients who were initiated on dabigatran etexilate capsules postoperatively within three days of mechanical bileaflet valve implantation, as well as in patients whose valves had been implanted more than three months prior to enrollment. Therefore, the use of dabigatran is contraindicated in all patients with mechanical prosthetic valves [see Contraindications ( 4 )]. The use of dabigatran for the prophylaxis of thromboembolic events in patients with atrial fibrillation in the setting of other forms of valvular heart disease, including the presence of a bioprosthetic heart valve, has not been studied and is not recommended. 5.5 Effect of P-gp Inducers and Inhibitors on Dabigatran Exposure The concomitant use of dabigatran with P-gp inducers (e.g., rifampin) reduces exposure to dabigatran and should generally be avoided [see Clinical Pharmacology ( 12.3 )]. P-gp inhibition and impaired renal function are the major independent factors that result in increased exposure to dabigatran [see Clinical Pharmacology ( 12.3 )]. Concomitant use of P-gp inhibitors in\n</excerpt>\n\n<excerpt id=\"dabigatran::contraindications::00\" drug=\"dabigatran\" section=\"Contraindications\">\n4 CONTRAINDICATIONS Dabigatran is contraindicated in patients with: \u2022 Active pathological bleeding [see Warnings and Precautions ( 5.2 ) and Adverse Reactions ( 6.1 )] \u2022 History of a serious hypersensitivity reaction to dabigatran, dabigatran etexilate, or to one of the excipients of the product (e.g., anaphylactic reaction or anaphylactic shock) [see Adverse Reactions ( 6.1 )] \u2022 Mechanical prosthetic heart valve [see Warnings and Precautions ( 5.4 )] \u2022 Active pathological bleeding ( 4 ) \u2022 History of serious hypersensitivity reaction to dabigatran ( 4 ) \u2022 Mechanical prosthetic heart valve ( 4 )\n</excerpt>\n\n<excerpt id=\"dabigatran::use_in_specific_populations::04\" drug=\"dabigatran\" section=\"Use in Specific Populations\">\n( 5 ), Adverse Reactions ( 6.1 ), and Clinical Studies ( 14.1 )]. 8.6 Renal Impairment Reduction of Risk of Stroke and Systemic Embolism in Non-valvular Atrial Fibrillation in Adult Patients No dose adjustment of dabigatran is recommended in patients with mild or moderate renal impairment [see Clinical Pharmacology ( 12.3 )]. Reduce the dose of dabigatran in patients with severe renal impairment (CrCl 15 to 30 mL/min) [see Dosage and Administration ( 2.2 , 2.4 ) and Clinical Pharmacology ( 12.3 )]. Dosing recommendations for patients with CrCl < 15 mL/min or on dialysis cannot be provided. Adjust dose appropriately in patients with renal impairment receiving concomitant P-gp inhibitors [see Warnings and Precautions ( 5.5 ), Drug Interactions ( 7.1 ), and Clinical Pharmacology ( 12.3 )]. Treatment and Reduction in the Risk of Recurrence of Deep Venous Thrombosis and Pulmonary Embolism in Adult Patients Patients with severe renal impairment (CrCl \u2264 30 mL/min) were excluded from RE-COVER. Dosing recommendations for patients with CrCl \u2264 30 mL/min or on dialysis cannot be provided. Avoid use of dabigatran with concomitant P-gp inhibitors in patients with CrCl < 50 mL/min [see Warnings and Precautions ( 5.5 ), Drug Interactions ( 7.2 ), and Clinical Pharmacology ( 12.3 )]. Prophylaxis of Deep Vein Thrombosis and Pulmonary Embolism in Adult Patients Following Hip Replacement Surgery Patients with severe renal impairment (CrCl < 30 mL/min) were excluded from RE-NOVATE and RE-NOVATE II. Dosing recommendations for patients with CrCl < 30 mL/min or on\n</excerpt>\n\n<excerpt id=\"dabigatran::warnings_and_cautions::04\" drug=\"dabigatran\" section=\"Warnings and Precautions\">\nwith P-gp inducers (e.g., rifampin) reduces exposure to dabigatran and should generally be avoided [see Clinical Pharmacology ( 12.3 )]. P-gp inhibition and impaired renal function are the major independent factors that result in increased exposure to dabigatran [see Clinical Pharmacology ( 12.3 )]. Concomitant use of P-gp inhibitors in patients with renal impairment is expected to produce increased exposure of dabigatran compared to that seen with either factor alone. Reduction of Risk of Stroke and Systemic Embolism in Non-valvular Atrial Fibrillation in Adult Patients Reduce the dosage of dabigatran etexilate capsules to 75 mg twice daily when dronedarone or systemic ketoconazole is co-administered with dabigatran etexilate capsules in patients with moderate renal impairment (CrCl 30 to 50 mL/min). Avoid use of dabigatran etexilate capsules and P-gp inhibitors in patients with severe renal impairment (CrCl 15 to 30 mL/min) [see Drug Interactions ( 7.1 ) and Use in Specific Populations ( 8.6 )]. Treatment and Reduction in the Risk of Recurrence of Deep Venous Thrombosis and Pulmonary Embolism in Adult Patients Avoid use of dabigatran etexilate capsules and concomitant P-gp inhibitors in patients with CrCl < 50 mL/min [see Drug Interactions ( 7.2 ) and Use in Specific Populations ( 8.6 )]. Prophylaxis of Deep Vein Thrombosis and Pulmonary Embolism in Adult Patients Following Hip Replacement Surgery Avoid use of dabigatran etexilate capsules and concomitant P-gp inhibitors in patients with CrCl < 50 mL/min [see Drug Interactions ( 7.3 ) and Use in Specific Populations ( 8.6 )]. Pediatric use\n</excerpt>\n\n<excerpt id=\"dabigatran::warnings_and_cautions::05\" drug=\"dabigatran\" section=\"Warnings and Precautions\">\n8.6 )]. Prophylaxis of Deep Vein Thrombosis and Pulmonary Embolism in Adult Patients Following Hip Replacement Surgery Avoid use of dabigatran etexilate capsules and concomitant P-gp inhibitors in patients with CrCl < 50 mL/min [see Drug Interactions ( 7.3 ) and Use in Specific Populations ( 8.6 )]. Pediatric use information is approved for Boehringer Ingelheim Pharmaceuticals, Inc.\u2019s Pradaxa (dabigatran etexilate) capsules. However, due to Boehringer Ingelheim Pharmaceuticals, Inc.\u2019s marketing exclusivity rights, this drug product is not labeled with that information. 5.6 Increased Risk of Thrombosis in Patients with Triple-Positive Antiphospholipid Syndrome Direct-acting oral anticoagulants (DOACs), including dabigatran, are not recommended for use in patients with triple-positive antiphospholipid syndrome (APS). For patients with APS (especially those who are triple-positive [positive for lupus anticoagulant, anticardiolipin, and anti-beta 2-glycoprotein I antibodies]), treatment with DOACs has been associated with increased rates of recurrent thrombotic events compared with vitamin K antagonist therapy.\n</excerpt>\n\n<excerpt id=\"dabigatran::dosage_and_administration::02\" drug=\"dabigatran\" section=\"Dosage and Administration\">\nuse of P-gp inhibitors: Avoid co-administration Prophylaxis of DVT and PE Following Hip Replacement Surgery CrCl > 30 mL/min: 110 mg for first day, then 220 mg once daily CrCl \u2264 30 mL/min or on dialysis: Dosing recommendations cannot be provided CrCl <50 mL/min with concomitant use of P-gp inhibitors: Avoid co-administration Reduction of Risk of Stroke and Systemic Embolism in Non-valvular Atrial Fibrillation in Adult Patients For patients with creatinine clearance (CrCl) > 30 mL/min, the recommended dosage of dabigatran etexilate capsules are 150 mg taken orally, twice daily. For patients with severe renal impairment (CrCl 15 to 30 mL/min), the recommended dosage of dabigatran etexilate capsules are 75 mg twice daily [see Use in Specific Populations ( 8.6 ) and Clinical Pharmacology ( 12.3 )]. Dosing recommendations for patients with a CrCl < 15 mL/min or on dialysis cannot be provided. Treatment of Deep Venous Thrombosis and Pulmonary Embolism in Adult Patients For patients with CrCl > 30 mL/min, the recommended dosage of dabigatran etexilate capsules are 150 mg taken orally, twice daily, after 5-10 days of parenteral anticoagulation. Dosing recommendations for patients with a CrCl \u2264 30 mL/min or on dialysis cannot be provided [see Use in Specific Populations ( 8.6 ) and Clinical Pharmacology ( 12.3 )]. Reduction in the Risk of Recurrence of Deep Venous Thrombosis and Pulmonary Embolism in Adult Patients For patients with CrCl >30 mL/min, the recommended dose of dabigatran etexilate capsules are 150 mg taken orally, twice daily after previous treatment.\n</excerpt>\n\n<excerpt id=\"dabigatran::geriatric_use::00\" drug=\"dabigatran\" section=\"Geriatric Use\">\n8.6 Renal Impairment Reduction of Risk of Stroke and Systemic Embolism in Non-valvular Atrial Fibrillation in Adult Patients No dose adjustment of dabigatran is recommended in patients with mild or moderate renal impairment [see Clinical Pharmacology ( 12.3 )]. Reduce the dose of dabigatran in patients with severe renal impairment (CrCl 15 to 30 mL/min) [see Dosage and Administration ( 2.2 , 2.4 ) and Clinical Pharmacology ( 12.3 )]. Dosing recommendations for patients with CrCl < 15 mL/min or on dialysis cannot be provided. Adjust dose appropriately in patients with renal impairment receiving concomitant P-gp inhibitors [see Warnings and Precautions ( 5.5 ), Drug Interactions ( 7.1 ), and Clinical Pharmacology ( 12.3 )]. Treatment and Reduction in the Risk of Recurrence of Deep Venous Thrombosis and Pulmonary Embolism in Adult Patients Patients with severe renal impairment (CrCl \u2264 30 mL/min) were excluded from RE-COVER. Dosing recommendations for patients with CrCl \u2264 30 mL/min or on dialysis cannot be provided. Avoid use of dabigatran with concomitant P-gp inhibitors in patients with CrCl < 50 mL/min [see Warnings and Precautions ( 5.5 ), Drug Interactions ( 7.2 ), and Clinical Pharmacology ( 12.3 )]. Prophylaxis of Deep Vein Thrombosis and Pulmonary Embolism in Adult Patients Following Hip Replacement Surgery Patients with severe renal impairment (CrCl < 30 mL/min) were excluded from RE-NOVATE and RE-NOVATE II. Dosing recommendations for patients with CrCl < 30 mL/min or on dialysis cannot be provided. Avoid use of dabigatran with concomitant P-gp inhibitors in patients\n</excerpt>\n\n<excerpt id=\"dabigatran::dosage_and_administration::03\" drug=\"dabigatran\" section=\"Dosage and Administration\">\nSpecific Populations ( 8.6 ) and Clinical Pharmacology ( 12.3 )]. Reduction in the Risk of Recurrence of Deep Venous Thrombosis and Pulmonary Embolism in Adult Patients For patients with CrCl >30 mL/min, the recommended dose of dabigatran etexilate capsules are 150 mg taken orally, twice daily after previous treatment. Dosing recommendations for patients with a CrCl \u226430 mL/min or on dialysis cannot be provided [see Use in Specific Populations ( 8.6 ) and Clinical Pharmacology ( 12.3 )]. Prophylaxis of Deep Vein Thrombosis and Pulmonary Embolism in Adult Patients Following Hip Replacement Surgery For patients with CrCl > 30 mL/min, the recommended dosage of dabigatran etexilate capsules are 110 mg taken orally 1-4 hours after surgery and after hemostasis has been achieved, then 220 mg taken once daily for 28-35 days. If dabigatran etexilate capsule is not started on the day of surgery, after hemostasis has been achieved initiate treatment with 220 mg once daily. Dosing recommendations for patients with a CrCl \u2264 30 mL/min or on dialysis cannot be provided [see Dosage and Administration ( 2.4 ), Use in Specific Populations ( 8.6 ) and Clinical Pharmacology ( 12.2 , 12.3 )]. Pediatric use information is approved for Boehringer Ingelheim Pharmaceuticals, Inc.\u2019s Pradaxa (dabigatran etexilate) capsules. However, due to Boehringer Ingelheim Pharmaceuticals, Inc.\u2019s marketing exclusivity rights, this drug product is not labeled with that information. 2.4 Dosage Adjustments Adult patients with renal impairment Assess renal function prior to initiation of treatment with dabigatran etexilate capsules. Periodically assess renal\n</excerpt>\n\n<excerpt id=\"dabigatran::dosage_and_administration::01\" drug=\"dabigatran\" section=\"Dosage and Administration\">\nInformation Dabigatran etexilate is available in different dosage forms and not all dosage forms are approved for the same indications and age groups. In addition, there are differences between the dosage forms with respect to dosing due to differences in bioavailability. Do not substitute different dosage forms on a milligram-to-milligram basis and do not combine more than one dosage form to achieve the total dose [see Clinical Pharmacology (12.3) ]. 2.2 Recommended Dabigatran etexilate Capsules Dosage for Adults Indication Dosage Reduction in Risk of Stroke and Systemic Embolism in Non-valvular AF CrCl > 30 mL/min: 150 mg twice daily CrCl 15 to 30 mL/min: 75 mg twice daily CrCl < 15 mL/min or on dialysis: Dosing recommendations cannot be provided CrCl 30 to 50 mL/min with concomitant use of P-gp inhibitors: Reduce dosage to 75 mg twice daily if given with P-gp inhibitors dronedarone or systemic ketoconazole. CrCl < 30 mL/min with concomitant use of P-gp inhibitors: Avoid co-administration Treatment of DVT and PE Reduction in the Risk of Recurrence of DVT and PE CrCl > 30 mL/min: 150 mg twice daily CrCl \u2264 30 mL/min or on dialysis: Dosing recommendations cannot be provided CrCl < 50 mL/min with concomitant use of P-gp inhibitors: Avoid co-administration Prophylaxis of DVT and PE Following Hip Replacement Surgery CrCl > 30 mL/min: 110 mg for first day, then 220 mg once daily CrCl \u2264 30 mL/min or on dialysis: Dosing recommendations cannot be provided CrCl <50 mL/min with concomitant use of P-gp inhibitors:\n</excerpt>\n\n<excerpt id=\"dabigatran::dosage_and_administration::00\" drug=\"dabigatran\" section=\"Dosage and Administration\">\n2 DOSAGE AND ADMINISTRATION \u2022 Non-valvular Atrial Fibrillation in Adult Patients : o For patients with CrCl >30 mL/min: 150 mg orally, twice daily ( 2.2 ) o For patients with CrCl 15 to 30 mL/min: 75 mg orally, twice daily ( 2.2 ) \u2022 Treatment of DVT and PE in Adult Patients : o For patients with CrCl > 30 mL/min: 150 mg orally, twice daily after 5-10 days of parenteral anticoagulation ( 2.2 ) \u2022 Reduction in the Risk of Recurrence of DVT and PE in Adult Patients: o For patients with CrCl > 30 mL/min: 150 mg orally, twice daily after previous treatment ( 2.2 ) \u2022 Prophylaxis of DVT and PE Following Hip Replacement Surgery in Adult Patients: o For patients with CrCl > 30 mL/min: 110 mg orally first day, then 220 mg once daily ( 2.2 ) \u2022 Dabigatran etexilate Capsules are NOT substitutable on a milligram-to-milligram basis with other dabigatran etexilate dosage forms \u2022 Review recommendations for converting to or from other oral or parenteral anticoagulants ( 2.6 , 2.7 ) \u2022 Temporarily discontinue dabigatran etexilate capsules before invasive or surgical procedures when possible, then restart promptly ( 2.8 ) 2.1 Important Dosage Information Dabigatran etexilate is available in different dosage forms and not all dosage forms are approved for the same indications and age groups. In addition, there are differences between the dosage forms with respect to dosing due to differences in bioavailability. Do not substitute different dosage forms on a milligram-to-milligram\n</excerpt>\n\nReview this patient's medicines and return the flags.",
+  "schema": {
+   "type": "object",
+   "properties": {
+    "flags": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "flag_type": {
+        "type": "string",
+        "enum": [
+         "interaction",
+         "contraindication",
+         "dose"
+        ]
+       },
+       "drugs": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "Drug names exactly as given in 'Drug names to use'"
+       },
+       "severity": {
+        "type": "string",
+        "enum": [
+         "contraindicated",
+         "major",
+         "moderate"
+        ]
+       },
+       "explanation": {
+        "type": "string",
+        "description": "One or two sentences for the pharmacist"
+       },
+       "recommendation": {
+        "type": "string",
+        "description": "What the label says to do"
+       },
+       "citations": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "chunk_id": {
+           "type": "string"
+          },
+          "quote": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "chunk_id",
+          "quote"
+         ],
+         "additionalProperties": false
+        }
+       }
+      },
+      "required": [
+       "flag_type",
+       "drugs",
+       "severity",
+       "explanation",
+       "recommendation",
+       "citations"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "not_in_library": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "flags",
+    "not_in_library"
+   ],
+   "additionalProperties": false
+  }
+ }
+}

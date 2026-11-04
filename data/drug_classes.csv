@@ -1,0 +1,64 @@
+drug,classes
+warfarin,anticoagulant; vitamin K antagonist; CYP2C9 substrate
+apixaban,anticoagulant; factor Xa inhibitor; direct oral anticoagulant; CYP3A4 substrate; P-gp substrate
+rivaroxaban,anticoagulant; factor Xa inhibitor; direct oral anticoagulant; CYP3A4 substrate; P-gp substrate
+dabigatran,anticoagulant; direct thrombin inhibitor; direct oral anticoagulant; P-gp substrate
+edoxaban,anticoagulant; factor Xa inhibitor; direct oral anticoagulant; P-gp substrate
+enoxaparin,anticoagulant; low molecular weight heparin
+heparin,anticoagulant; unfractionated heparin
+clopidogrel,antiplatelet; P2Y12 inhibitor; CYP2C19 substrate
+prasugrel,antiplatelet; P2Y12 inhibitor
+ticagrelor,antiplatelet; P2Y12 inhibitor; CYP3A4 substrate
+aspirin,antiplatelet; NSAID; salicylate
+amiodarone,antiarrhythmic; QT-prolonging drug; CYP2C9 inhibitor; CYP3A4 inhibitor; P-gp inhibitor; moderate CYP3A inhibitor
+dronedarone,antiarrhythmic; QT-prolonging drug; moderate CYP3A inhibitor; P-gp inhibitor; CYP3A4 substrate
+dofetilide,antiarrhythmic; QT-prolonging drug; renal cation transport substrate
+sotalol,antiarrhythmic; beta blocker; QT-prolonging drug
+flecainide,antiarrhythmic; class IC antiarrhythmic; CYP2D6 substrate
+propafenone,antiarrhythmic; class IC antiarrhythmic; CYP2D6 substrate; CYP3A4 substrate
+digoxin,cardiac glycoside; P-gp substrate
+metoprolol,beta blocker; CYP2D6 substrate
+carvedilol,beta blocker; CYP2D6 substrate
+atenolol,beta blocker
+bisoprolol,beta blocker
+propranolol,beta blocker; non-selective beta blocker; CYP2D6 substrate
+diltiazem,calcium channel blocker; non-dihydropyridine calcium channel blocker; moderate CYP3A inhibitor; CYP3A4 inhibitor
+verapamil,calcium channel blocker; non-dihydropyridine calcium channel blocker; moderate CYP3A inhibitor; CYP3A4 inhibitor; P-gp inhibitor
+amlodipine,calcium channel blocker; dihydropyridine calcium channel blocker; CYP3A4 substrate
+lisinopril,ACE inhibitor; drug that increases serum potassium
+enalapril,ACE inhibitor; drug that increases serum potassium
+ramipril,ACE inhibitor; drug that increases serum potassium
+losartan,angiotensin II receptor blocker; ARB; drug that increases serum potassium
+valsartan,angiotensin II receptor blocker; ARB; drug that increases serum potassium
+spironolactone,potassium-sparing diuretic; aldosterone antagonist; drug that increases serum potassium
+eplerenone,potassium-sparing diuretic; aldosterone antagonist; drug that increases serum potassium; CYP3A4 substrate
+furosemide,loop diuretic; diuretic
+torsemide,loop diuretic; diuretic
+hydrochlorothiazide,thiazide diuretic; diuretic
+potassium chloride,potassium supplement; drug that increases serum potassium
+atorvastatin,statin; HMG-CoA reductase inhibitor; CYP3A4 substrate
+simvastatin,statin; HMG-CoA reductase inhibitor; CYP3A4 substrate
+rosuvastatin,statin; HMG-CoA reductase inhibitor
+pravastatin,statin; HMG-CoA reductase inhibitor
+ezetimibe,cholesterol absorption inhibitor
+ranolazine,antianginal; QT-prolonging drug; CYP3A substrate; P-gp inhibitor
+isosorbide mononitrate,nitrate; organic nitrate; nitric oxide donor
+nitroglycerin,nitrate; organic nitrate; nitric oxide donor
+hydralazine,vasodilator
+sildenafil,PDE5 inhibitor; phosphodiesterase type 5 inhibitor; CYP3A4 substrate
+metformin,biguanide; antidiabetic
+empagliflozin,SGLT2 inhibitor; antidiabetic
+dapagliflozin,SGLT2 inhibitor; antidiabetic
+clarithromycin,macrolide antibiotic; strong CYP3A4 inhibitor; strong CYP3A inhibitor; P-gp inhibitor; QT-prolonging drug
+erythromycin,macrolide antibiotic; moderate CYP3A inhibitor; CYP3A4 inhibitor; P-gp inhibitor; QT-prolonging drug
+fluconazole,azole antifungal; CYP2C9 inhibitor; moderate CYP3A inhibitor; CYP2C19 inhibitor; QT-prolonging drug
+itraconazole,azole antifungal; strong CYP3A4 inhibitor; strong CYP3A inhibitor; P-gp inhibitor; combined P-gp and strong CYP3A4 inhibitor
+rifampin,rifamycin antibiotic; strong CYP3A4 inducer; strong CYP3A inducer; P-gp inducer; combined P-gp and strong CYP3A4 inducer; CYP2C9 inducer
+carbamazepine,anticonvulsant; strong CYP3A4 inducer; strong CYP3A inducer; P-gp inducer; combined P-gp and strong CYP3A4 inducer
+phenytoin,anticonvulsant; strong CYP3A4 inducer; strong CYP3A inducer; P-gp inducer; combined P-gp and strong CYP3A4 inducer; CYP2C9 substrate
+sulfamethoxazole and trimethoprim,sulfonamide antibiotic; cotrimoxazole; CYP2C9 inhibitor; drug that increases serum potassium; renal cation transport inhibitor
+ibuprofen,NSAID; nonsteroidal anti-inflammatory drug
+naproxen,NSAID; nonsteroidal anti-inflammatory drug
+omeprazole,proton pump inhibitor; PPI; CYP2C19 inhibitor
+fluoxetine,SSRI; selective serotonin reuptake inhibitor; CYP2D6 inhibitor; strong CYP2D6 inhibitor
+sertraline,SSRI; selective serotonin reuptake inhibitor; CYP2D6 inhibitor

@@ -1,0 +1,58 @@
+{
+ "split": "test",
+ "patients": 22,
+ "expected_flags": 18,
+ "TP": 18,
+ "FP": 1,
+ "FN": 0,
+ "precision": 0.9474,
+ "recall": 1.0,
+ "f1": 0.973,
+ "grounded_TP": 17,
+ "grounded_precision": 0.8947,
+ "grounded_recall": 0.9444,
+ "grounded_f1": 0.9189,
+ "by_type": {
+  "interaction": {
+   "TP": 12,
+   "FP": 1,
+   "FN": 0,
+   "grounded_TP": 12,
+   "precision": 0.9231,
+   "recall": 1.0,
+   "f1": 0.96
+  },
+  "contraindication": {
+   "TP": 3,
+   "FP": 0,
+   "FN": 0,
+   "grounded_TP": 2,
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0
+  },
+  "dose": {
+   "TP": 3,
+   "FP": 0,
+   "FN": 0,
+   "grounded_TP": 3,
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0
+  }
+ },
+ "false_alarm_patients_among_safe": "1/5",
+ "severity_exact": 0.833,
+ "citation_accuracy": 0.944,
+ "citation_accuracy_exact": 0.722,
+ "warnings_shown_without_verified_source": "0/20",
+ "warnings_removed_by_citation_check": "0/20",
+ "tokens_in": 205062,
+ "tokens_out": 5192,
+ "model": "gemini:gemini-3.1-flash-lite",
+ "warnings_kept_by_quote_repair": 0,
+ "flags_dismissed_by_self_check": 0,
+ "avg_context_chunks": 24.3,
+ "retrieval_mode": "hybrid",
+ "k": 5
+}

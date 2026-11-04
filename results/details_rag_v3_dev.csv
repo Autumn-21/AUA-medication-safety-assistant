@@ -1,0 +1,20 @@
+patient_id,category,outcome,flag_type,drugs,severity_expected,severity_given,citation_correct,citation_exact,citation_verified
+P001,interaction,TP,interaction,aspirin + warfarin,major,moderate,True,True,True
+P003,interaction,TP,interaction,sulfamethoxazole and trimethoprim + warfarin,major,moderate,True,False,True
+P005,interaction,TP,interaction,amiodarone + simvastatin,major,major,True,False,True
+P007,interaction,TP,interaction,dofetilide + verapamil,contraindicated,contraindicated,True,False,True
+P009,interaction,TP,interaction,clopidogrel + omeprazole,major,major,True,False,True
+P011,interaction,TP,interaction,rifampin + rivaroxaban,major,major,True,True,True
+P013,interaction,TP,interaction,amiodarone + digoxin,major,major,True,True,True
+P015,interaction,TP,interaction,isosorbide mononitrate + sildenafil,contraindicated,contraindicated,True,True,True
+P017,interaction,TP,interaction,clarithromycin + dronedarone,contraindicated,contraindicated,True,False,True
+P019,interaction,TP,interaction,apixaban + carbamazepine,major,major,True,True,True
+P021,contraindication,TP,contraindication,warfarin,contraindicated,contraindicated,True,True,True
+P023,contraindication,TP,contraindication,metformin,contraindicated,contraindicated,False,False,True
+P025,contraindication,TP,contraindication,propranolol,contraindicated,contraindicated,True,True,True
+P027,dose,TP,dose,apixaban,major,major,True,True,True
+P029,dose,TP,dose,enoxaparin,major,major,True,True,True
+P031,dose,TP,dose,edoxaban,major,major,True,False,True
+P033,multiple,TP,interaction,amiodarone + simvastatin,major,major,True,False,True
+P033,multiple,TP,dose,apixaban,major,major,True,True,True
+P033,multiple,TP,interaction,apixaban + ibuprofen,major,moderate,True,False,True

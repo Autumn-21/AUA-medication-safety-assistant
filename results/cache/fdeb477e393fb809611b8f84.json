@@ -1,0 +1,35 @@
+{
+ "output": {
+  "found": true,
+  "quote": "In patients with at least 2 of the following characteristics: age greater than or equal to 80 years, body weight less than or equal to 60 kg, or serum creatinine greater than or equal to 1.5 mg/dL, the recommended dose is 2.5 mg orally twice daily."
+ },
+ "usage": {
+  "input_tokens": 606,
+  "output_tokens": 74,
+  "seconds": 17.0
+ },
+ "model": "gemini:gemini-3.1-flash-lite",
+ "raw_text": "{\"found\": true, \"quote\": \"In patients with at least 2 of the following characteristics: age greater than or equal to 80 years, body weight less than or equal to 60 kg, or serum creatinine greater than or equal to 1.5 mg/dL, the recommended dose is 2.5 mg orally twice daily.\"}",
+ "request": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system": "You copy text exactly. You are given ONE excerpt from an FDA drug label and a warning that cites it.\nCopy, word for word, the shortest continuous passage (8 to 40 words) of the excerpt that supports the warning.\nDo not change, reorder, shorten or add any word; keep numbers exactly as written. If no passage of the excerpt supports\nthe warning, set \"found\" to false and \"quote\" to an empty string.",
+  "user": "WARNING\ndose: apixaban\nThe patient is 81 years old and weighs 54 kg, meeting two of the criteria (age >= 80 and weight <= 60 kg) that require a dose reduction to 2.5 mg twice daily for stroke risk reduction in atrial fibrillation.\n\nEXCERPT\n<excerpt id=\"apixaban::dosage_and_administration::00\" drug=\"apixaban\" section=\"Dosage and Administration\">\n2 DOSAGE AND ADMINISTRATION \u2022 Reduction of risk of stroke and systemic embolism in nonvalvular atrial fibrillation: o The recommended dose is 5 mg orally twice daily. (2.1) o In patients with at least 2 of the following characteristics: age greater than or equal to 80 years, body weight less than or equal to 60 kg, or serum creatinine greater than or equal to 1.5 mg/dL, the recommended dose is 2.5 mg orally twice daily. (2.1) \u2022 Prophylaxis of DVT following hip or knee replacement surgery: o The recommended dose is 2.5 mg orally twice daily. (2.1) \u2022 Treatment of DVT and PE: o The recommended dose is 10 mg taken orally twice daily for 7 days, followed by 5 mg taken orally twice daily. (2.1) \u2022 Reduction in the risk of recurrent DVT and PE following initial therapy: o The recommended dose is 2.5 mg taken orally twice daily. (2.1) \u2022 Treatment of VTE and reduction in the risk of recurrent VTE in pediatric patients from birth and older after at least 5 days of initial anticoagulant treatment: o See dosing recommendations in the Full Prescribing Information (2.2) 2.1 Recommended Dose in Adult Patients Reduction of Risk of Stroke and Systemic Embolism in Patients with Nonvalvular Atrial Fibrillation The recommended dose of ELIQUIS for most patients is 5 mg taken orally twice daily. The recommended dose of ELIQUIS is 2.5 mg twice daily in patients with at least two of the following characteristics: \u2022 age greater than or equal\n</excerpt>\n\nCopy the supporting passage exactly.",
+  "schema": {
+   "type": "object",
+   "properties": {
+    "found": {
+     "type": "boolean"
+    },
+    "quote": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "found",
+    "quote"
+   ],
+   "additionalProperties": false
+  }
+ }
+}

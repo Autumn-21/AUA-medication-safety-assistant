@@ -1,0 +1,7 @@
+patient_id,drugs,reason
+P009,clopidogrel + aspirin,Intended dual antiplatelet therapy after a stent; a bleeding-risk note is acceptable but not required
+P024,prasugrel + aspirin,Intended dual antiplatelet therapy after a stent; a bleeding-risk note is acceptable but not required
+P040,clopidogrel + aspirin,Intended dual antiplatelet therapy after a stent; a bleeding-risk note is acceptable but not required
+P033,ibuprofen,NSAID caution in an elderly patient with reduced kidney function; acceptable but not required
+P033,amiodarone + apixaban,Amiodarone modestly raises apixaban levels (P-gp); a monitoring note is acceptable but not required
+P034,warfarin + digoxin,Not a major interaction; a monitoring note is acceptable but not required

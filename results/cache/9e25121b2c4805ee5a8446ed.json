@@ -1,0 +1,132 @@
+{
+ "output": {
+  "flags": [
+   {
+    "flag_type": "interaction",
+    "drugs": [
+     "potassium chloride",
+     "spironolactone"
+    ],
+    "explanation": "The patient is taking spironolactone, a RAAS inhibitor, concurrently with potassium chloride. The label advises that RAAS inhibitors produce potassium retention and requires close monitoring of potassium levels.",
+    "is_problem": true,
+    "severity": "moderate",
+    "recommendation": "Closely monitor potassium in patients receiving concomitant RAAS therapy.",
+    "citations": [
+     {
+      "chunk_id": "potassium chloride::drug_interactions::00",
+      "quote": "Drugs that inhibit the renin-angiotensin-aldosterone system (RAAS) including angiotensin converting enzyme (ACE) inhibitors, angiotensin receptor blockers (ARBs), spironolactone, eplerenone, or aliskiren produce potassium retention by inhibiting aldosterone production. Closely monitor potassium in patients receiving concomitant RAAS therapy."
+     }
+    ]
+   }
+  ],
+  "not_in_library": [
+   "warfarin",
+   "amiodarone",
+   "simvastatin",
+   "metoprolol",
+   "furosemide",
+   "omeprazole"
+  ]
+ },
+ "usage": {
+  "input_tokens": 3498,
+  "output_tokens": 286,
+  "seconds": 16.4
+ },
+ "model": "gemini:gemini-3.1-flash-lite",
+ "raw_text": "{\n  \"flags\": [\n    {\n      \"flag_type\": \"interaction\",\n      \"drugs\": [\n        \"potassium chloride\",\n        \"spironolactone\"\n      ],\n      \"explanation\": \"The patient is taking spironolactone, a RAAS inhibitor, concurrently with potassium chloride. The label advises that RAAS inhibitors produce potassium retention and requires close monitoring of potassium levels.\",\n      \"is_problem\": true,\n      \"severity\": \"moderate\",\n      \"recommendation\": \"Closely monitor potassium in patients receiving concomitant RAAS therapy.\",\n      \"citations\": [\n        {\n          \"chunk_id\": \"potassium chloride::drug_interactions::00\",\n          \"quote\": \"Drugs that inhibit the renin-angiotensin-aldosterone system (RAAS) including angiotensin converting enzyme (ACE) inhibitors, angiotensin receptor blockers (ARBs), spironolactone, eplerenone, or aliskiren produce potassium retention by inhibiting aldosterone production. Closely monitor potassium in patients receiving concomitant RAAS therapy.\"\n        }\n      ]\n    }\n  ],\n  \"not_in_library\": [\n    \"warfarin\",\n    \"amiodarone\",\n    \"simvastatin\",\n    \"metoprolol\",\n    \"furosemide\",\n    \"omeprazole\"\n  ]\n}",
+ "request": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system": "You are a clinical pharmacy decision-support assistant that reviews a patient's medicines for a\npharmacist. You must work ONLY from the FDA label excerpts provided with each request.\n\nGrounding rules (most important):\n- Every claim must be supported by the excerpts. Do not use outside knowledge for any warning.\n- Every flag must cite at least one excerpt by its exact id, with a quote of 8 to 40 consecutive words copied\n  exactly from that excerpt (same words, same order).\n- If the excerpts do not support a concern, do not flag it.\n\nFlag only problems that apply to THIS patient:\n1. interaction: two of the patient's medicines that the label warns about when used together\n   (including dose limits for a combination, e.g. \"do not exceed X mg with drug Y\").\n2. contraindication: a medicine unsafe for this patient because of a condition, pregnancy, allergy or kidney function.\n3. dose: a dose that does not match the label for this patient's kidney function (CrCl / eGFR given),\n   age or body weight.\nDo not flag general warnings that apply to every patient taking the drug unless a feature of this patient or one\nof their other medicines triggers them. Use the CrCl and eGFR values given; do not recalculate them.\nMedicines marked [NOT IN OUR LABEL LIBRARY] must not be flagged; list them in not_in_library.\nIf there is nothing to flag, return an empty flags list.\n\nSeverity (use the label's own wording):\n- \"contraindicated\": the label says contraindicated, do not use, or must not be used.\n- \"major\": the label says avoid, reduce or change the dose, do not exceed a dose, or not recommended.\n- \"moderate\": the label says monitor, use caution, or consider a dose change.\n\nBefore you flag anything, check these rules:\n- Quotes: copy ONE continuous passage from a single excerpt, word for word. Do not join sentences from different\n  places or change any word.\n- Dose limits: when a label gives a maximum or recommended dose (alone, with another drug, or for a level of kidney\n  function, age or weight), compare it with the patient's ACTUAL dose. Flag only if the patient's dose is above the\n  limit or does not match what the label recommends for this patient. A combination the label allows at the\n  patient's current dose is not a problem.\n- Pregnancy: flag a medicine only if its label says it is contraindicated in pregnancy, should be avoided or\n  discontinued, or has a boxed warning about harm to the fetus. Statements such as \"use only if the potential\n  benefit justifies the potential risk\" are not flags.\n- Check every medicine: for each one, look for interactions with each other medicine, contraindications for this\n  patient, and whether the dose fits this patient's kidney function, age and weight.\n- Self-check every candidate flag: in \"explanation\", first compare the patient's ACTUAL situation (their dose,\n  kidney function, age, weight, other medicines, pregnancy, conditions) with what the label requires. Then set\n  \"is_problem\": true only if the label shows the patient's current medicines or dose are a problem; false if the\n  label shows they are acceptable (for example, the dose already matches the label's recommendation for this\n  patient). Only flags with is_problem = true are shown to the pharmacist.\n- Quotes: copy the label's sentence exactly as written, keeping its numbers as digits and its word order.",
+  "user": "PATIENT\nAge: 76  Sex: M  Weight: 80.0 kg\nSerum creatinine: 1.2 mg/dL  ->  CrCl (Cockcroft-Gault): 59.3 mL/min, eGFR (CKD-EPI 2021): 62.7 mL/min/1.73m2  (calculated by code)\nPregnant: No\nConditions: atrial fibrillation; heart failure; hyperlipidaemia; GERD\nAllergies: none\nMedications:\n- warfarin 5 mg once daily\n- amiodarone 200 mg once daily\n- simvastatin 40 mg once daily\n- metoprolol succinate 50 mg once daily\n- furosemide 40 mg once daily\n- potassium chloride 20 mEq once daily\n- spironolactone 25 mg once daily\n- omeprazole 20 mg once daily\n\nDrug names to use: amiodarone, furosemide, metoprolol, omeprazole, potassium chloride, simvastatin, spironolactone, warfarin\n\nFDA LABEL EXCERPTS (9)\n<excerpt id=\"potassium chloride::contraindications::00\" drug=\"potassium chloride\" section=\"Contraindications\">\n4 CONTRAINDICATIONS Potassium chloride is contraindicated in patients on triamterene or amiloride. Concomitant use with triamterene and amiloride ( 4 , 7.1 )\n</excerpt>\n\n<excerpt id=\"potassium chloride::drug_interactions::00\" drug=\"potassium chloride\" section=\"Drug Interactions\">\n7 DRUG INTERACTIONS Renin-angiotensin-aldosterone system inhibitors: Monitor for hyperkalemia ( 7.2 ) Nonsteroidal anti-inflammatory drugs: Monitor for hyperkalemia ( 7.3 ) 7.1 Triamterene and Amiloride Use with triamterene or amiloride can produce severe hyperkalemia. Avoid concomitant use [see Contraindications (4) ] . 7.2 Renin-Angiotensin-Aldosterone System Inhibitors Drugs that inhibit the renin-angiotensin-aldosterone system (RAAS) including angiotensin converting enzyme (ACE) inhibitors, angiotensin receptor blockers (ARBs), spironolactone, eplerenone, or aliskiren produce potassium retention by inhibiting aldosterone production. Closely monitor potassium in patients receiving concomitant RAAS therapy. 7.3 Nonsteroidal Anti-Inflammatory Drugs Nonsteroidal anti-inflammatory drugs (NSAIDs) may produce potassium retention by reducing renal synthesis of prostaglandin E and impairing the renin-angiotensin system. Closely monitor potassium in patients receiving concomitant NSAID therapy.\n</excerpt>\n\n<excerpt id=\"potassium chloride::dosage_and_administration::00\" drug=\"potassium chloride\" section=\"Dosage and Administration\">\n2 DOSAGE AND ADMINISTRATION Monitor serum potassium and adjust dosages accordingly. ( 2.1 ) If serum potassium concentration is less than 2.5 mEq/L, use intravenous potassium instead of oral supplementation ( 2.1 ) Take with meals and with a glass of water or other liquid. Swallow tablets whole. ( 2.1 ) Treatment of hypokalemia : Typical dose range is 40-100 mEq per day in divided doses. Limit doses to 20 mEq per dose. ( 2.2 ) Prevention of hypokalemia : Typical dose is 20 mEq per day ( 2.2 ) 2.1 Monitoring and Administration If serum potassium concentration is less than 2.5 mEq/L, use intravenous potassium instead of oral supplementation. Monitoring Monitor serum potassium and adjust the dose based on serum potassium level. Monitor serum potassium periodically during maintenance therapy to ensure potassium remains in desired range. The treatment of potassium depletion, particularly in the presence of cardiac disease, renal disease, or acidosis, requires careful attention to acid-base balance, volume status, electrolytes, including magnesium, sodium, chloride, phosphate, and calcium, electrocardiograms, and the clinical status of the patient. Correct volume status, acid-base balance, and electrolyte deficits as appropriate. Administration Take potassium chloride extended-release tablets with meals and with a glass of water or other liquid. Do not take on an empty stomach because of its potential for gastric irritation [see Warnings and Precautions (5.1) ] . Swallow tablets whole without crushing, chewing or sucking. 2.2 Dosing Dosage must be adjusted to the individual needs of each patient. Dosages greater than 20\n</excerpt>\n\n<excerpt id=\"potassium chloride::warnings_and_cautions::00\" drug=\"potassium chloride\" section=\"Warnings and Precautions\">\n5 WARNINGS AND PRECAUTIONS Gastrointestinal Adverse Reactions: Can produce ulcerative and/or stenotic lesions of the gastrointestinal tract, particularly when in prolonged contact with the gastrointestinal mucosa. Take with meals. ( 5.1 ) 5.1 Gastrointestinal Adverse Reactions Solid oral dosage forms of potassium chloride can produce ulcerative and/or stenotic lesions of the gastrointestinal tract, particularly when the drug remains in contact with the gastrointestinal mucosa for a prolonged period of time. Consider the use of liquid potassium in patients with dysphagia, swallowing disorders, or severe gastrointestinal motility disorders. If severe vomiting, abdominal pain, distention, or gastrointestinal bleeding occurs, discontinue potassium chloride extended-release tablets and consider possibility of ulceration, obstruction or perforation. Potassium chloride extended-release tablets should not be taken on an empty stomach because of its potential for gastric irritation [see Dosage and Administration (2.1) ] .\n</excerpt>\n\n<excerpt id=\"potassium chloride::dosage_and_administration::01\" drug=\"potassium chloride\" section=\"Dosage and Administration\">\nwater or other liquid. Do not take on an empty stomach because of its potential for gastric irritation [see Warnings and Precautions (5.1) ] . Swallow tablets whole without crushing, chewing or sucking. 2.2 Dosing Dosage must be adjusted to the individual needs of each patient. Dosages greater than 20 mEq per day should be divided such that no more than 20 mEq is given in a single dose. Treatment of hypokalemia: Typical dose range is 40-100 mEq per day. Prevention of hypokalemia: Typical dose is 20 mEq per day.\n</excerpt>\n\n<excerpt id=\"potassium chloride::use_in_specific_populations::01\" drug=\"potassium chloride\" section=\"Use in Specific Populations\">\neffectiveness of potassium chloride extended-release tablets in children have not been established. 8.5 Geriatric Use Clinical studies of potassium chloride extended-release tablets did not include sufficient numbers of subjects aged 65 and over to determine whether they respond differently from younger subjects. Other reported clinical experience has not identified differences in responses between the elderly and younger patients. In general, dose selection for an elderly patient should be cautious, usually starting at the low end of the dosing range, reflecting the greater frequency of decreased hepatic, renal or cardiac function, and of concomitant disease or other drug therapy. This drug is known to be substantially excreted by the kidney, and the risk of toxic reactions to this drug may be greater in patients with impaired renal function. Because elderly patients are more likely to have decreased renal function, care should be taken in dose selection, and it may be useful to monitor renal function. 8.6 Cirrhotics Doses of potassium in patients with cirrhosis produce a larger increase in potassium levels compared to the response in normal patients. Based on published literature, the baseline corrected serum concentrations of potassium measured over 3 hours after administration in cirrhotic subjects who received an oral potassium load rose to approximately twice that of normal subjects who received the same load. Patients with cirrhosis should usually be started at the low end of the dosing range, and the serum potassium level should be monitored frequently. 8.7 Renal Impairment Patients with renal impairment have reduced urinary\n</excerpt>\n\n<excerpt id=\"potassium chloride::use_in_specific_populations::02\" drug=\"potassium chloride\" section=\"Use in Specific Populations\">\noral potassium load rose to approximately twice that of normal subjects who received the same load. Patients with cirrhosis should usually be started at the low end of the dosing range, and the serum potassium level should be monitored frequently. 8.7 Renal Impairment Patients with renal impairment have reduced urinary excretion of potassium and are at substantially increased risk of hyperkalemia. Patients with impaired renal function, particularly if the patient is on RAAS inhibitors or NSAIDs, should usually be started at the low end of the dosing range because of the potential for development of hyperkalemia [see Drug Interactions (7.2 , 7.3) ] . The serum potassium level should be monitored frequently. Renal function should be assessed periodically.\n</excerpt>\n\n<excerpt id=\"potassium chloride::use_in_specific_populations::00\" drug=\"potassium chloride\" section=\"Use in Specific Populations\">\n8 USE IN SPECIFIC POPULATIONS Cirrhosis: Initiate therapy at the low end of the dosing range ( 8.6 ) Renal Impairment: Initiate therapy at the low end of the dosing range ( 8.7 ) 8.1 Pregnancy Risk Summary There are no human data related to use of potassium chloride extended-release tablets during pregnancy, and animal reproduction studies have not been conducted. Potassium supplementation that does not lead to hyperkalemia is not expected to cause fetal harm. The background risk for major birth defects and miscarriage in the indicated population is unknown. All pregnancies have a background risk of birth defect, loss, or other adverse outcomes. In the U.S. general population, the estimated background risk of major birth defects and miscarriage in clinically recognized pregnancies is 2& to 4% and 15% to 20%, respectively. 8.2 Lactation Risk Summary The normal potassium ion content of human milk is about 13 mEq per liter. Since potassium from oral supplements such as potassium chloride extended-release tablets becomes part of the body potassium pool, as long as body potassium is not excessive, the contribution of potassium chloride supplementation should have little or no effect on the level in human milk. 8.4 Pediatric Use Safety and effectiveness of potassium chloride extended-release tablets in children have not been established. 8.5 Geriatric Use Clinical studies of potassium chloride extended-release tablets did not include sufficient numbers of subjects aged 65 and over to determine whether they respond differently from younger subjects. Other reported clinical experience has not identified differences\n</excerpt>\n\n<excerpt id=\"potassium chloride::geriatric_use::00\" drug=\"potassium chloride\" section=\"Geriatric Use\">\n8.5 Geriatric Use Clinical studies of potassium chloride extended-release tablets did not include sufficient numbers of subjects aged 65 and over to determine whether they respond differently from younger subjects. Other reported clinical experience has not identified differences in responses between the elderly and younger patients. In general, dose selection for an elderly patient should be cautious, usually starting at the low end of the dosing range, reflecting the greater frequency of decreased hepatic, renal or cardiac function, and of concomitant disease or other drug therapy. This drug is known to be substantially excreted by the kidney, and the risk of toxic reactions to this drug may be greater in patients with impaired renal function. Because elderly patients are more likely to have decreased renal function, care should be taken in dose selection, and it may be useful to monitor renal function.\n</excerpt>\n\nReview only problems that involve potassium chloride (its interactions with each other medicine, its contraindications for this patient, and its dose). The other medicines are reviewed separately.",
+  "schema": {
+   "type": "object",
+   "properties": {
+    "flags": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "flag_type": {
+        "type": "string",
+        "enum": [
+         "interaction",
+         "contraindication",
+         "dose"
+        ]
+       },
+       "drugs": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "Drug names exactly as given in 'Drug names to use'"
+       },
+       "explanation": {
+        "type": "string",
+        "description": "Compare the patient's actual situation with the label, in one or two sentences for the pharmacist"
+       },
+       "is_problem": {
+        "type": "boolean",
+        "description": "true only if the label shows this is a problem for this patient"
+       },
+       "severity": {
+        "type": "string",
+        "enum": [
+         "contraindicated",
+         "major",
+         "moderate"
+        ]
+       },
+       "recommendation": {
+        "type": "string",
+        "description": "What the label says to do"
+       },
+       "citations": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "chunk_id": {
+           "type": "string"
+          },
+          "quote": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "chunk_id",
+          "quote"
+         ],
+         "additionalProperties": false
+        }
+       }
+      },
+      "required": [
+       "flag_type",
+       "drugs",
+       "explanation",
+       "is_problem",
+       "severity",
+       "recommendation",
+       "citations"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "not_in_library": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "flags",
+    "not_in_library"
+   ],
+   "additionalProperties": false
+  }
+ }
+}

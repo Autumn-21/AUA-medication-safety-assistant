@@ -1,0 +1,118 @@
+{
+ "output": {
+  "flags": [
+   {
+    "flag_type": "contraindication",
+    "drugs": [
+     "losartan"
+    ],
+    "severity": "major",
+    "explanation": "Losartan is a drug that acts on the renin-angiotensin system and can cause fetal harm when administered to a pregnant woman, particularly in the second and third trimesters.",
+    "recommendation": "When pregnancy is detected, discontinue losartan potassium as soon as possible.",
+    "citations": [
+     {
+      "chunk_id": "losartan::pregnancy::00",
+      "quote": "Losartan potassium can cause fetal harm when administered to a pregnant woman. Use of drugs that act on the renin-angiotensin system during the second and third trimesters of pregnancy reduces fetal renal function"
+     }
+    ]
+   }
+  ],
+  "not_in_library": []
+ },
+ "usage": {
+  "input_tokens": 4574,
+  "output_tokens": 203,
+  "seconds": 12.6
+ },
+ "model": "gemini:gemini-3.1-flash-lite",
+ "raw_text": "{\n  \"flags\": [\n    {\n      \"flag_type\": \"contraindication\",\n      \"drugs\": [\n        \"losartan\"\n      ],\n      \"severity\": \"major\",\n      \"explanation\": \"Losartan is a drug that acts on the renin-angiotensin system and can cause fetal harm when administered to a pregnant woman, particularly in the second and third trimesters.\",\n      \"recommendation\": \"When pregnancy is detected, discontinue losartan potassium as soon as possible.\",\n      \"citations\": [\n        {\n          \"chunk_id\": \"losartan::pregnancy::00\",\n          \"quote\": \"Losartan potassium can cause fetal harm when administered to a pregnant woman. Use of drugs that act on the renin-angiotensin system during the second and third trimesters of pregnancy reduces fetal renal function\"\n        }\n      ]\n    }\n  ],\n  \"not_in_library\": []\n}",
+ "request": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system": "You are a clinical pharmacy decision-support assistant that reviews a patient's medicines for a\npharmacist. You must work ONLY from the FDA label excerpts provided with each request.\n\nGrounding rules (most important):\n- Every claim must be supported by the excerpts. Do not use outside knowledge for any warning.\n- Every flag must cite at least one excerpt by its exact id, with a quote of 8 to 40 consecutive words copied\n  exactly from that excerpt (same words, same order).\n- If the excerpts do not support a concern, do not flag it.\n\nFlag only problems that apply to THIS patient:\n1. interaction: two of the patient's medicines that the label warns about when used together\n   (including dose limits for a combination, e.g. \"do not exceed X mg with drug Y\").\n2. contraindication: a medicine unsafe for this patient because of a condition, pregnancy, allergy or kidney function.\n3. dose: a dose that does not match the label for this patient's kidney function (CrCl / eGFR given),\n   age or body weight.\nDo not flag general warnings that apply to every patient taking the drug unless a feature of this patient or one\nof their other medicines triggers them. Use the CrCl and eGFR values given; do not recalculate them.\nMedicines marked [NOT IN OUR LABEL LIBRARY] must not be flagged; list them in not_in_library.\nIf there is nothing to flag, return an empty flags list.\n\nSeverity (use the label's own wording):\n- \"contraindicated\": the label says contraindicated, do not use, or must not be used.\n- \"major\": the label says avoid, reduce or change the dose, do not exceed a dose, or not recommended.\n- \"moderate\": the label says monitor, use caution, or consider a dose change.\n\nBefore you flag anything, check these rules:\n- Quotes: copy ONE continuous passage from a single excerpt, word for word. Do not join sentences from different\n  places or change any word.\n- Dose limits: when a label gives a maximum or recommended dose (alone, with another drug, or for a level of kidney\n  function, age or weight), compare it with the patient's ACTUAL dose. Flag only if the patient's dose is above the\n  limit or does not match what the label recommends for this patient. A combination the label allows at the\n  patient's current dose is not a problem.\n- Pregnancy: flag a medicine only if its label says it is contraindicated in pregnancy, should be avoided or\n  discontinued, or has a boxed warning about harm to the fetus. Statements such as \"use only if the potential\n  benefit justifies the potential risk\" are not flags.\n- Check every medicine: for each one, look for interactions with each other medicine, contraindications for this\n  patient, and whether the dose fits this patient's kidney function, age and weight.",
+  "user": "PATIENT\nAge: 33  Sex: F  Weight: 70.0 kg\nSerum creatinine: 0.7 mg/dL  ->  CrCl (Cockcroft-Gault): 126.3 mL/min, eGFR (CKD-EPI 2021): 117.0 mL/min/1.73m2  (calculated by code)\nPregnant: Yes (20 weeks)\nConditions: chronic hypertension\nAllergies: none\nMedications:\n- losartan 50 mg once daily\n\nDrug names to use: losartan\n\nFDA LABEL EXCERPTS (10)\n<excerpt id=\"losartan::use_in_specific_populations::01\" drug=\"losartan\" section=\"Use in Specific Populations\">\nMaternal and/or Embryo/Fetal Risk Hypertension in pregnancy increases the maternal risk for pre-eclampsia, gestational diabetes, premature delivery, and delivery complications (e.g., need for cesarean section, post-partum hemorrhage). Hypertension increases the fetal risk for intrauterine growth restriction and intrauterine death. Pregnant women with hypertension should be carefully monitored and managed accordingly. Fetal/Neonatal Adverse Reactions Oligohydramnios in pregnant women who use drugs affecting the renin-angiotensin system in the second and third trimesters of pregnancy can result in the following: reduced fetal renal function leading to anuria and renal failure, fetal lung hypoplasia, skeletal deformations, including skull hypoplasia, hypotension, and death. In the unusual case that there is no appropriate alternative to therapy with drugs affecting the renin angiotensin system for a particular patient, apprise the mother of the potential risk to the fetus. In patients taking losartan potassium during pregnancy, perform serial ultrasound examinations to assess the intra-amniotic environment. Fetal testing may be appropriate, based on the week of gestation. If oligohydramnios is observed, discontinue losartan potassium, unless it is considered lifesaving for the mother. Patients and physicians should be aware, however, that oligohydramnios may not appear until after the fetus has sustained irreversible injury. Closely observe neonates with histories of in utero exposure to losartan potassium for hypotension, oliguria, and hyperkalemia. In neonates with a history of in utero exposure to losartan potassium, if oliguria or hypotension occurs, support blood pressure and renal perfusion. Exchange transfusions or dialysis may be required as a means of reversing hypotension and replacing renal function.\n</excerpt>\n\n<excerpt id=\"losartan::pregnancy::00\" drug=\"losartan\" section=\"Pregnancy\">\n8.1 Pregnancy Risk Summary Losartan potassium can cause fetal harm when administered to a pregnant woman. Use of drugs that act on the renin-angiotensin system during the second and third trimesters of pregnancy reduces fetal renal function and increases fetal and neonatal morbidity and death. Most epidemiologic studies examining fetal abnormalities after exposure to antihypertensive use in the first trimester have not distinguished drugs affecting the renin-angiotensin system from other antihypertensive agents. When pregnancy is detected, discontinue losartan potassium as soon as possible (see Clinical Considerations). The estimated background risk of major birth defects and miscarriage for the indicated population is unknown. All pregnancies have a background risk of birth defect, loss, or other adverse outcomes. In the U.S. general population, the estimated background risk of major birth defects and miscarriage in clinically recognized pregnancies is 2% to 4% and 15% to 20%, respectively. Clinical Considerations Disease-associated Maternal and/or Embryo/Fetal Risk Hypertension in pregnancy increases the maternal risk for pre-eclampsia, gestational diabetes, premature delivery, and delivery complications (e.g., need for cesarean section, post-partum hemorrhage). Hypertension increases the fetal risk for intrauterine growth restriction and intrauterine death. Pregnant women with hypertension should be carefully monitored and managed accordingly. Fetal/Neonatal Adverse Reactions Oligohydramnios in pregnant women who use drugs affecting the renin-angiotensin system in the second and third trimesters of pregnancy can result in the following: reduced fetal renal function leading to anuria and renal failure, fetal lung hypoplasia, skeletal deformations, including skull hypoplasia, hypotension, and death. In the unusual case that\n</excerpt>\n\n<excerpt id=\"losartan::use_in_specific_populations::00\" drug=\"losartan\" section=\"Use in Specific Populations\">\n8 USE IN SPECIFIC POPULATIONS \u2022 Losartan potassium is not recommended in pediatric patients less than 6 years of age or in pediatric patients with glomerular filtration rate less than 30 mL/min/1.73 m 2 . (2.1 , 8.4) \u2022 Hepatic Impairment: Recommended starting dose 25 mg once daily. (2.4 , 8.8 , 12.3) 8.1 Pregnancy Risk Summary Losartan potassium can cause fetal harm when administered to a pregnant woman. Use of drugs that act on the renin-angiotensin system during the second and third trimesters of pregnancy reduces fetal renal function and increases fetal and neonatal morbidity and death. Most epidemiologic studies examining fetal abnormalities after exposure to antihypertensive use in the first trimester have not distinguished drugs affecting the renin-angiotensin system from other antihypertensive agents. When pregnancy is detected, discontinue losartan potassium as soon as possible (see Clinical Considerations). The estimated background risk of major birth defects and miscarriage for the indicated population is unknown. All pregnancies have a background risk of birth defect, loss, or other adverse outcomes. In the U.S. general population, the estimated background risk of major birth defects and miscarriage in clinically recognized pregnancies is 2% to 4% and 15% to 20%, respectively. Clinical Considerations Disease-associated Maternal and/or Embryo/Fetal Risk Hypertension in pregnancy increases the maternal risk for pre-eclampsia, gestational diabetes, premature delivery, and delivery complications (e.g., need for cesarean section, post-partum hemorrhage). Hypertension increases the fetal risk for intrauterine growth restriction and intrauterine death. Pregnant women with hypertension should be carefully monitored and managed accordingly.\n</excerpt>\n\n<excerpt id=\"losartan::warnings_and_cautions::00\" drug=\"losartan\" section=\"Warnings and Precautions\">\n5 WARNINGS AND PRECAUTIONS \u2022 Hypotension: Correct volume or salt depletion prior to administration of losartan potassium. (5.2) \u2022 Monitor renal function and potassium in susceptible patients. (5.3 , 5.4) 5.1 Fetal Toxicity Losartan potassium can cause fetal harm when administered to a pregnant woman. Use of drugs that act on the renin-angiotensin system during the second and third trimesters of pregnancy reduces fetal renal function and increases fetal and neonatal morbidity and death. Resulting oligohydramnios can be associated with fetal lung hypoplasia and skeletal deformations. Potential neonatal adverse effects include skull hypoplasia, anuria, hypotension, renal failure, and death. When pregnancy is detected, discontinue losartan potassium as soon as possible [see Use in Specific Populations (8.1) ]. 5.2 Hypotension in Volume- or Salt-Depleted Patients In patients with an activated renin-angiotensin system, such as volume- or salt-depleted patients (e.g., those being treated with high doses of diuretics), symptomatic hypotension may occur after initiation of treatment with losartan potassium. Correct volume or salt depletion prior to administration of losartan potassium [see Dosage and Administration (2.1) ]. 5.3 Renal Function Deterioration Changes in renal function including acute renal failure can be caused by drugs that inhibit the renin angiotensin system and by diuretics. Patients whose renal function may depend in part on the activity of the renin-angiotensin system (e.g., patients with renal artery stenosis, chronic kidney disease, severe congestive heart failure, or volume depletion) may be at particular risk of developing acute renal failure on losartan potassium. Monitor renal function periodically in these\n</excerpt>\n\n<excerpt id=\"losartan::pregnancy::01\" drug=\"losartan\" section=\"Pregnancy\">\nOligohydramnios in pregnant women who use drugs affecting the renin-angiotensin system in the second and third trimesters of pregnancy can result in the following: reduced fetal renal function leading to anuria and renal failure, fetal lung hypoplasia, skeletal deformations, including skull hypoplasia, hypotension, and death. In the unusual case that there is no appropriate alternative to therapy with drugs affecting the renin angiotensin system for a particular patient, apprise the mother of the potential risk to the fetus. In patients taking losartan potassium during pregnancy, perform serial ultrasound examinations to assess the intra-amniotic environment. Fetal testing may be appropriate, based on the week of gestation. If oligohydramnios is observed, discontinue losartan potassium, unless it is considered lifesaving for the mother. Patients and physicians should be aware, however, that oligohydramnios may not appear until after the fetus has sustained irreversible injury. Closely observe neonates with histories of in utero exposure to losartan potassium for hypotension, oliguria, and hyperkalemia. In neonates with a history of in utero exposure to losartan potassium, if oliguria or hypotension occurs, support blood pressure and renal perfusion. Exchange transfusions or dialysis may be required as a means of reversing hypotension and replacing renal function. Data Animal Data Losartan potassium was administered orally to rats during the period of late gestation through lactation (Gestation Day 15 through Lactation Day 20) at doses of 10 mg/kg/day, 25 mg/kg/day, and 100 mg/kg/day. Losartan potassium has been shown to produce adverse effects in rat fetuses and neonates, including decreased body weight,\n</excerpt>\n\n<excerpt id=\"losartan::dosage_and_administration::01\" drug=\"losartan\" section=\"Dosage and Administration\">\nadjusted according to blood pressure response. Doses above 1.4 mg per kg (or in excess of 100 mg) daily have not been studied in pediatric patients [see Clinical Pharmacology (12.3) , Clinical Studies (14.1) , and Warnings and Precautions (5.2) ]. Losartan potassium tablets are not recommended in pediatric patients less than 6 years of age or in pediatric patients with estimated glomerular filtration rate less than 30 mL/min/1.73 m 2 [see Use in Specific Populations (8.4) , Clinical Pharmacology (12.3) , and Clinical Studies (14) ]. 2.2 Hypertensive Patients with Left Ventricular Hypertrophy The usual starting dose is 50 mg of losartan potassium tablets once daily. Hydrochlorothiazide 12.5 mg daily should be added and/or the dose of losartan potassium should be increased to 100 mg once daily followed by an increase in hydrochlorothiazide to 25 mg once daily based on blood pressure response [see Clinical Studies (14.2) ]. 2.3 Nephropathy in Type 2 Diabetic Patients The usual starting dose is 50 mg once daily. The dose should be increased to 100 mg once daily based on blood pressure response [see Clinical Studies (14.3) ]. 2.4 Dosage Modifications in Patients with Hepatic Impairment In patients with mild-to-moderate hepatic impairment the recommended starting dose of losartan potassium is 25 mg once daily. Losartan potassium has not been studied in patients with severe hepatic impairment [see Use in Special Populations (8.8) and Clinical Pharmacology (12.3) ]. 2.5 Preparation of Suspension (for 200 mL of a 2.5 mg/mL suspension) Add 10 mL of\n</excerpt>\n\n<excerpt id=\"losartan::dosage_and_administration::00\" drug=\"losartan\" section=\"Dosage and Administration\">\n2 DOSAGE AND ADMINISTRATION Hypertension \u2022 Usual adult dose: 50 mg once daily. (2.1) \u2022 Usual pediatric starting dose: 0.7 mg per kg once daily (up to 50 mg). (2.1) Hypertensive Patients with Left Ventricular Hypertrophy \u2022 Usual starting dose: 50 mg once daily. (2.2) \u2022 Add hydrochlorothiazide 12.5 mg and/or increase losartan potassium to 100 mg followed by an increase to hydrochlorothiazide 25 mg if further blood pressure response is needed. (2.2 , 14.2) Nephropathy in Type 2 Diabetic Patients \u2022 Usual dose: 50 mg once daily. (2.3) \u2022 Increase dose to 100 mg once daily if further blood pressure response is needed. (2.3) 2.1 Hypertension Adult Hypertension The usual starting dose of losartan potassium tablets is 50 mg once daily. The dosage can be increased to a maximum dose of 100 mg once daily as needed to control blood pressure [see Clinical Studies (14.1) ]. A starting dose of 25 mg is recommended for patients with possible intravascular depletion (e.g., on diuretic therapy). Pediatric Hypertension The usual recommended starting dose is 0.7 mg per kg once daily (up to 50 mg total) administered as a tablet or a suspension [see Dosage and Administration (2.5) ]. Dosage should be adjusted according to blood pressure response. Doses above 1.4 mg per kg (or in excess of 100 mg) daily have not been studied in pediatric patients [see Clinical Pharmacology (12.3) , Clinical Studies (14.1) , and Warnings and Precautions (5.2) ]. Losartan potassium tablets are not recommended in pediatric patients\n</excerpt>\n\n<excerpt id=\"losartan::dosage_and_administration::02\" drug=\"losartan\" section=\"Dosage and Administration\">\nrecommended starting dose of losartan potassium is 25 mg once daily. Losartan potassium has not been studied in patients with severe hepatic impairment [see Use in Special Populations (8.8) and Clinical Pharmacology (12.3) ]. 2.5 Preparation of Suspension (for 200 mL of a 2.5 mg/mL suspension) Add 10 mL of Purified Water USP to an 8 ounce (240 mL) amber polyethylene terephthalate (PET) bottle containing ten 50 mg losartan potassium tablets. Immediately shake for at least 2 minutes. Let the concentrate stand for 1 hour and then shake for 1 minute to disperse the tablet contents. Separately prepare a 50/50 volumetric mixture of Ora-Plus\u2122 and Ora-Sweet SF\u2122. Add 190 mL of the 50/50 Ora-Plus\u2122/Ora-Sweet SF\u2122 mixture to the tablet and water slurry in the PET bottle and shake for 1 minute to disperse the ingredients. The suspension should be refrigerated at 2 to 8\u00b0C (36 to 46\u00b0F) and can be stored for up to 4 weeks. Shake the suspension prior to each use and return promptly to the refrigerator.\n</excerpt>\n\n<excerpt id=\"losartan::use_in_specific_populations::05\" drug=\"losartan\" section=\"Use in Specific Populations\">\ndifferences in large trials, it cannot be known whether the observed difference is the result of chance. However, the LIFE study provides no evidence that the benefits of losartan potassium on reducing the risk of cardiovascular events in hypertensive patients with left ventricular hypertrophy apply to Black patients [see Clinical Studies (14.2) ]. 8.7 Renal Impairment Patients with renal insufficiency have elevated plasma concentrations of losartan and its active metabolite compared to subjects with normal renal function. No dose adjustment is necessary in patients with renal impairment unless a patient with renal impairment is also volume depleted [see Dosage and Administration (2.3) , Warnings and Precautions (5.3) and Clinical Pharmacology (12.3) ]. 8.8 Hepatic Impairment The recommended starting dose of losartan potassium is 25 mg in patients with mild-to-moderate hepatic impairment. Following oral administration in patients with mild-to-moderate hepatic impairment, plasma concentrations of losartan and its active metabolite were, respectively, 5 times and 1.7 times those seen in healthy volunteers. Losartan potassium has not been studied in patients with severe hepatic impairment [see Dosage and Administration (2.4) and Clinical Pharmacology (12.3) ].\n</excerpt>\n\n<excerpt id=\"losartan::geriatric_use::00\" drug=\"losartan\" section=\"Geriatric Use\">\n8.5 Geriatric Use Of the total number of patients receiving losartan potassium in controlled clinical studies for hypertension, 391 patients (19%) were 65 years and over, while 37 patients (2%) were 75 years and over. In a controlled clinical study for renal protection in type 2 diabetic patients with proteinuria, 248 patients (33%) were 65 years and over. In a controlled clinical study for the reduction in the combined risk of cardiovascular death, stroke and myocardial infarction in hypertensive patients with left ventricular hypertrophy, 2857 patients (62%) were 65 years and over, while 808 patients (18%) were 75 years and over. No overall differences in effectiveness or safety were observed between these patients and younger patients, but greater sensitivity of some older individuals cannot be ruled out.\n</excerpt>\n\nReview this patient's medicines and return the flags.",
+  "schema": {
+   "type": "object",
+   "properties": {
+    "flags": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "flag_type": {
+        "type": "string",
+        "enum": [
+         "interaction",
+         "contraindication",
+         "dose"
+        ]
+       },
+       "drugs": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "Drug names exactly as given in 'Drug names to use'"
+       },
+       "severity": {
+        "type": "string",
+        "enum": [
+         "contraindicated",
+         "major",
+         "moderate"
+        ]
+       },
+       "explanation": {
+        "type": "string",
+        "description": "One or two sentences for the pharmacist"
+       },
+       "recommendation": {
+        "type": "string",
+        "description": "What the label says to do"
+       },
+       "citations": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "chunk_id": {
+           "type": "string"
+          },
+          "quote": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "chunk_id",
+          "quote"
+         ],
+         "additionalProperties": false
+        }
+       }
+      },
+      "required": [
+       "flag_type",
+       "drugs",
+       "severity",
+       "explanation",
+       "recommendation",
+       "citations"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "not_in_library": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "flags",
+    "not_in_library"
+   ],
+   "additionalProperties": false
+  }
+ }
+}

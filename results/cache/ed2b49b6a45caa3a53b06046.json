@@ -1,0 +1,124 @@
+{
+ "output": {
+  "flags": [
+   {
+    "flag_type": "interaction",
+    "drugs": [
+     "apixaban",
+     "itraconazole"
+    ],
+    "severity": "major",
+    "explanation": "Itraconazole is a strong dual inhibitor of CYP3A4 and P-gp, which increases apixaban exposure and the risk of bleeding.",
+    "recommendation": "For patients receiving apixaban at a dose of 5 mg twice daily, reduce the dose to 2.5 mg twice daily when coadministered with strong dual inhibitors of CYP3A4 and P-gp.",
+    "citations": [
+     {
+      "drug_label": "apixaban",
+      "section": "DRUG INTERACTIONS",
+      "quote": "For patients receiving ELIQUIS at a dose of 5 mg twice daily, reduce the dose to 2.5 mg twice daily when coadministered with strong dual inhibitors of CYP3A4 and P-gp."
+     }
+    ]
+   }
+  ],
+  "not_in_library": []
+ },
+ "usage": {
+  "input_tokens": 752,
+  "output_tokens": 244,
+  "seconds": 12.8
+ },
+ "model": "gemini:gemini-3.1-flash-lite",
+ "raw_text": "{\n  \"flags\": [\n    {\n      \"flag_type\": \"interaction\",\n      \"drugs\": [\n        \"apixaban\",\n        \"itraconazole\"\n      ],\n      \"severity\": \"major\",\n      \"explanation\": \"Itraconazole is a strong dual inhibitor of CYP3A4 and P-gp, which increases apixaban exposure and the risk of bleeding.\",\n      \"recommendation\": \"For patients receiving apixaban at a dose of 5 mg twice daily, reduce the dose to 2.5 mg twice daily when coadministered with strong dual inhibitors of CYP3A4 and P-gp.\",\n      \"citations\": [\n        {\n          \"drug_label\": \"apixaban\",\n          \"section\": \"DRUG INTERACTIONS\",\n          \"quote\": \"For patients receiving ELIQUIS at a dose of 5 mg twice daily, reduce the dose to 2.5 mg twice daily when coadministered with strong dual inhibitors of CYP3A4 and P-gp.\"\n        }\n      ]\n    }\n  ],\n  \"not_in_library\": []\n}",
+ "request": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system": "You are a clinical pharmacy decision-support assistant that reviews a patient's medicines for a\npharmacist, using your knowledge of the official FDA drug labels (no documents are provided).\n\nFor every flag, name the label section the information comes from and quote the label's wording as exactly as you can\n(8 to 40 words).\n\nFlag only problems that apply to THIS patient:\n1. interaction: two of the patient's medicines that the label warns about when used together\n   (including dose limits for a combination, e.g. \"do not exceed X mg with drug Y\").\n2. contraindication: a medicine unsafe for this patient because of a condition, pregnancy, allergy or kidney function.\n3. dose: a dose that does not match the label for this patient's kidney function (CrCl / eGFR given),\n   age or body weight.\nDo not flag general warnings that apply to every patient taking the drug unless a feature of this patient or one\nof their other medicines triggers them. Use the CrCl and eGFR values given; do not recalculate them.\nMedicines marked [NOT IN OUR LABEL LIBRARY] must not be flagged; list them in not_in_library.\nIf there is nothing to flag, return an empty flags list.\n\nSeverity (use the label's own wording):\n- \"contraindicated\": the label says contraindicated, do not use, or must not be used.\n- \"major\": the label says avoid, reduce or change the dose, do not exceed a dose, or not recommended.\n- \"moderate\": the label says monitor, use caution, or consider a dose change.",
+  "user": "PATIENT\nAge: 58  Sex: F  Weight: 72.0 kg\nSerum creatinine: 0.8 mg/dL  ->  CrCl (Cockcroft-Gault): 87.1 mL/min, eGFR (CKD-EPI 2021): 85.4 mL/min/1.73m2  (calculated by code)\nPregnant: No\nConditions: atrial fibrillation; fungal nail infection\nAllergies: none\nMedications:\n- apixaban 5 mg twice daily\n- itraconazole 200 mg once daily\n\nDrug names to use: apixaban, itraconazole\n\nReview this patient's medicines and return the flags.",
+  "schema": {
+   "type": "object",
+   "properties": {
+    "flags": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "flag_type": {
+        "type": "string",
+        "enum": [
+         "interaction",
+         "contraindication",
+         "dose"
+        ]
+       },
+       "drugs": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "Drug names exactly as given in 'Drug names to use'"
+       },
+       "severity": {
+        "type": "string",
+        "enum": [
+         "contraindicated",
+         "major",
+         "moderate"
+        ]
+       },
+       "explanation": {
+        "type": "string",
+        "description": "One or two sentences for the pharmacist"
+       },
+       "recommendation": {
+        "type": "string",
+        "description": "What the label says to do"
+       },
+       "citations": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "drug_label": {
+           "type": "string"
+          },
+          "section": {
+           "type": "string"
+          },
+          "quote": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "drug_label",
+          "section",
+          "quote"
+         ],
+         "additionalProperties": false
+        }
+       }
+      },
+      "required": [
+       "flag_type",
+       "drugs",
+       "severity",
+       "explanation",
+       "recommendation",
+       "citations"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "not_in_library": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "flags",
+    "not_in_library"
+   ],
+   "additionalProperties": false
+  }
+ }
+}

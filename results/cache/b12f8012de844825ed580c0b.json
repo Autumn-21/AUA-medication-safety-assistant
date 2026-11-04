@@ -1,0 +1,35 @@
+{
+ "output": {
+  "found": true,
+  "quote": "tablets are contraindicated in patients with an estimated glomerular filtration rate (eGFR) below 30 mL/minute/1.73 m 2 ."
+ },
+ "usage": {
+  "input_tokens": 503,
+  "output_tokens": 42,
+  "seconds": 4.7
+ },
+ "model": "gemini:gemini-3.1-flash-lite",
+ "raw_text": "{\"found\": true, \"quote\": \"tablets are contraindicated in patients with an estimated glomerular filtration rate (eGFR) below 30 mL/minute/1.73 m 2 .\"}",
+ "request": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system": "You copy text exactly. You are given ONE excerpt from an FDA drug label and a warning that cites it.\nCopy, word for word, the shortest continuous passage (8 to 40 words) of the excerpt that supports the warning.\nDo not change, reorder, shorten or add any word; keep numbers exactly as written. If no passage of the excerpt supports\nthe warning, set \"found\" to false and \"quote\" to an empty string.",
+  "user": "WARNING\ndose: metformin\nThe patient's eGFR is 27.0 mL/min/1.73m2, which is below the 30 mL/min/1.73m2 threshold where metformin is contraindicated.\n\nEXCERPT\n<excerpt id=\"metformin::dosage_and_administration::02\" drug=\"metformin\" section=\"Dosage and Administration\">\ntablets are contraindicated in patients with an estimated glomerular filtration rate (eGFR) below 30 mL/minute/1.73 m 2 . \u2022 Initiation of metformin hydrochloride tablets in patients with an eGFR between 30 to 45 mL/minute/1.73 m 2 is not recommended. \u2022 In patients taking metformin hydrochloride tablets whose eGFR later falls below 45 mL/min/1.73 m 2 , assess the benefit risk of continuing therapy. \u2022 Discontinue metformin hydrochloride tablets if the patient\u2019s eGFR later falls below 30 mL/minute/1.73 m 2 [see Warnings and Precautions (5.1) ]. 2.4 Discontinuation for Iodinated Contrast Imaging Procedures Discontinue metformin hydrochloride tablets at the time of, or prior to, an iodinated contrast imaging procedure in patients with an eGFR between 30 and 60 mL/min/1.73 m 2 ; in patients with a history of liver disease, alcoholism, or heart failure; or in patients who will be administered intra-arterial iodinated contrast. Re-evaluate eGFR 48 hours after the imaging procedure; restart metformin hydrochloride tablets if renal function is stable.\n</excerpt>\n\nCopy the supporting passage exactly.",
+  "schema": {
+   "type": "object",
+   "properties": {
+    "found": {
+     "type": "boolean"
+    },
+    "quote": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "found",
+    "quote"
+   ],
+   "additionalProperties": false
+  }
+ }
+}

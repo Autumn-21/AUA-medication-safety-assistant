@@ -1,0 +1,118 @@
+{
+ "output": {
+  "flags": [
+   {
+    "flag_type": "contraindication",
+    "drugs": [
+     "hydralazine"
+    ],
+    "severity": "moderate",
+    "explanation": "The patient is pregnant. Hydralazine should only be used during pregnancy if the expected benefit justifies the potential risk to the fetus.",
+    "recommendation": "Hydralazine should be used during pregnancy only if the expected benefit justifies the potential risk to the fetus.",
+    "citations": [
+     {
+      "chunk_id": "hydralazine::precautions::03",
+      "quote": "There are no adequate and well-controlled studies in pregnant women. Although clinical experience does not include any positive evidence of adverse effects on the human fetus, hydralazine should be used during pregnancy only if the expected benefit justifies the potential risk to the fetus."
+     }
+    ]
+   }
+  ],
+  "not_in_library": []
+ },
+ "usage": {
+  "input_tokens": 2684,
+  "output_tokens": 213,
+  "seconds": 13.0
+ },
+ "model": "gemini:gemini-3.1-flash-lite",
+ "raw_text": "{\n  \"flags\": [\n    {\n      \"flag_type\": \"contraindication\",\n      \"drugs\": [\n        \"hydralazine\"\n      ],\n      \"severity\": \"moderate\",\n      \"explanation\": \"The patient is pregnant. Hydralazine should only be used during pregnancy if the expected benefit justifies the potential risk to the fetus.\",\n      \"recommendation\": \"Hydralazine should be used during pregnancy only if the expected benefit justifies the potential risk to the fetus.\",\n      \"citations\": [\n        {\n          \"chunk_id\": \"hydralazine::precautions::03\",\n          \"quote\": \"There are no adequate and well-controlled studies in pregnant women. Although clinical experience does not include any positive evidence of adverse effects on the human fetus, hydralazine should be used during pregnancy only if the expected benefit justifies the potential risk to the fetus.\"\n        }\n      ]\n    }\n  ],\n  \"not_in_library\": []\n}",
+ "request": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system": "You are a clinical pharmacy decision-support assistant that reviews a patient's medicines for a\npharmacist. You must work ONLY from the FDA label excerpts provided with each request.\n\nGrounding rules (most important):\n- Every claim must be supported by the excerpts. Do not use outside knowledge for any warning.\n- Every flag must cite at least one excerpt by its exact id, with a quote of 8 to 40 consecutive words copied\n  exactly from that excerpt (same words, same order).\n- If the excerpts do not support a concern, do not flag it.\n\nFlag only problems that apply to THIS patient:\n1. interaction: two of the patient's medicines that the label warns about when used together\n   (including dose limits for a combination, e.g. \"do not exceed X mg with drug Y\").\n2. contraindication: a medicine unsafe for this patient because of a condition, pregnancy, allergy or kidney function.\n3. dose: a dose that does not match the label for this patient's kidney function (CrCl / eGFR given),\n   age or body weight.\nDo not flag general warnings that apply to every patient taking the drug unless a feature of this patient or one\nof their other medicines triggers them. Use the CrCl and eGFR values given; do not recalculate them.\nMedicines marked [NOT IN OUR LABEL LIBRARY] must not be flagged; list them in not_in_library.\nIf there is nothing to flag, return an empty flags list.\n\nSeverity (use the label's own wording):\n- \"contraindicated\": the label says contraindicated, do not use, or must not be used.\n- \"major\": the label says avoid, reduce or change the dose, do not exceed a dose, or not recommended.\n- \"moderate\": the label says monitor, use caution, or consider a dose change.",
+  "user": "PATIENT\nAge: 30  Sex: F  Weight: 65.0 kg\nSerum creatinine: 0.6 mg/dL  ->  CrCl (Cockcroft-Gault): 140.7 mL/min, eGFR (CKD-EPI 2021): 123.8 mL/min/1.73m2  (calculated by code)\nPregnant: Yes (24 weeks)\nConditions: hypertension in pregnancy\nAllergies: none\nMedications:\n- hydralazine 25 mg four times daily\n\nDrug names to use: hydralazine\n\nFDA LABEL EXCERPTS (7)\n<excerpt id=\"hydralazine::precautions::03\" drug=\"hydralazine\" section=\"Precautions\">\nthat human cancer is associated with hydralazine use, epidemiologic studies have so far been insufficient to arrive at any conclusions. Pregnancy Teratogenic Effects Pregnancy Category C Animal studies indicate that hydralazine is teratogenic in mice at 20-30 times the maximum daily human dose of 200-300 mg and possibly in rabbits at 10-15 times the maximum daily human dose, but that it is nonteratogenic in rats. Teratogenic effects observed were cleft palate and malformations of facial and cranial bones. There are no adequate and well-controlled studies in pregnant women. Although clinical experience does not include any positive evidence of adverse effects on the human fetus, hydralazine should be used during pregnancy only if the expected benefit justifies the potential risk to the fetus. Nursing Mothers It is not known whether this drug is excreted in human milk. Because many drugs are excreted in human milk, caution should be exercised when hydralazine injection is administered to a nursing woman. Pediatric Use Safety and effectiveness in pediatric patients have not been established in controlled clinical trials, although there is experience with the use of hydralazine hydrochloride in pediatric patients. The usual recommended parenteral dosage, administered intramuscularly or intravenously, is 1.7-3.5 mg/kg of body weight daily, divided into four to six doses.\n</excerpt>\n\n<excerpt id=\"hydralazine::pregnancy::00\" drug=\"hydralazine\" section=\"Pregnancy\">\nPregnancy Teratogenic Effects Pregnancy Category C Animal studies indicate that hydralazine is teratogenic in mice at 20-30 times the maximum daily human dose of 200-300 mg and possibly in rabbits at 10-15 times the maximum daily human dose, but that it is nonteratogenic in rats. Teratogenic effects observed were cleft palate and malformations of facial and cranial bones. There are no adequate and well-controlled studies in pregnant women. Although clinical experience does not include any positive evidence of adverse effects on the human fetus, hydralazine should be used during pregnancy only if the expected benefit justifies the potential risk to the fetus.\n</excerpt>\n\n<excerpt id=\"hydralazine::contraindications::00\" drug=\"hydralazine\" section=\"Contraindications\">\nCONTRAINDICATIONS: Hypersensitivity to hydralazine, coronary artery disease, mitral valvular rheumatic heart disease.\n</excerpt>\n\n<excerpt id=\"hydralazine::precautions::02\" drug=\"hydralazine\" section=\"Precautions\">\nabout 250 mg/kg per day (about 80 times the maximum recommended human dose). In a 2-year carcinogenicity study of rats given hydralazine by gavage at dose levels of 15, 30 and 60 mg/kg/day (approximately 5 to 20 times the recommended human daily dosage), microscopic examination of the liver revealed a small, but statistically significant increase in benign neoplastic nodules in male and female rats from the high-dose group and in female rats from the intermediate-dose group. Benign interstitial cell tumors of the testes were also significantly increased in male rats from the high-dose group. The tumors observed are common in aged rats and a significantly increased incidence was not observed until 18 months of treatment. Hydralazine was shown to be mutagenic in bacterial systems (Gene Mutation and DNA Repair) and in one of two rats and one rabbit hepatocyte in vitro DNA repair studies. Additional in vivo and in vitro studies using lymphoma cells, germinal cells and fibroblasts from mice, bone marrow cells from Chinese hamsters and fibroblasts from human cell lines did not demonstrate any mutagenic potential for hydralazine. The extent to which these findings indicate a risk to man is uncertain. While long-term clinical observation has not suggested that human cancer is associated with hydralazine use, epidemiologic studies have so far been insufficient to arrive at any conclusions. Pregnancy Teratogenic Effects Pregnancy Category C Animal studies indicate that hydralazine is teratogenic in mice at 20-30 times the maximum daily human dose of 200-300 mg and possibly in rabbits\n</excerpt>\n\n<excerpt id=\"hydralazine::precautions::00\" drug=\"hydralazine\" section=\"Precautions\">\nPRECAUTIONS: General Myocardial stimulation produced by hydralazine can cause anginal attacks and ECG changes of myocardial ischemia. The drug has been implicated in the production of myocardial infarction. It must, therefore, be used with caution in patients with suspected coronary artery disease. The \u201chyperdynamic\u201d circulation caused by hydralazine may accentuate specific cardiovascular inadequacies. For example, hydralazine may increase pulmonary artery pressure in patients with mitral valvular disease. The drug may reduce the pressor responses to epinephrine. Postural hypotension may result from hydralazine but is less common than with ganglionic blocking agents. It should be used with caution in patients with cerebral vascular accidents. In hypertensive patients with normal kidneys who are treated with hydralazine, there is evidence of increased renal blood flow and a maintenance of glomerular filtration rate. In some instances where control values were below normal, improved renal function has been noted after administration of hydralazine. However, as with any antihypertensive agent, hydralazine should be used with caution in patients with advanced renal damage. Peripheral neuritis, evidenced by paresthesia, numbness, and tingling, has been observed. Publishing evidence suggests an antipyridoxine effect and that pyridoxine should be added to the regimen if symptoms develop. Laboratory Tests Complete blood counts and antinuclear antibody titer determinations are indicated before and periodically during prolonged therapy with hydralazine even though the patient is asymptomatic. These studies are also indicated if the patient develops arthralgia, fever, chest pain, continued malaise or other unexplained signs or symptoms. A positive antinuclear antibody titer requires that the\n</excerpt>\n\n<excerpt id=\"hydralazine::dosage_and_administration::00\" drug=\"hydralazine\" section=\"Dosage and Administration\">\nDOSAGE AND ADMINISTRATION: When there is urgent need, therapy in the hospitalized patient may be initiated intramuscularly or as a rapid intravenous bolus injection directly into the vein. Hydralazine Hydrochloride Injection should be used only when the drug cannot be given orally. The usual dose is 20-40 mg, repeated as necessary. Certain patients (especially those with marked renal damage) may require a lower dose. Blood pressure should be checked frequently. It may begin to fall within a few minutes after injection, with the average maximal decrease occurring in 10-80 minutes. In cases where there has been increased intracranial pressure, lowering the blood pressure may increase cerebral ischemia. Most patients can be transferred to oral hydralazine hydrochloride within 24-48 hours. The product should be used immediately after the vial is opened. The product should not be added to infusion solutions. Hydralazine Hydrochloride Injection may discolor upon contact with metal; discolored solutions should be discarded. Parenteral drug products should be inspected visually for particulate matter and discoloration prior to administration, whenever solution and container permit.\n</excerpt>\n\n<excerpt id=\"hydralazine::precautions::01\" drug=\"hydralazine\" section=\"Precautions\">\nand antinuclear antibody titer determinations are indicated before and periodically during prolonged therapy with hydralazine even though the patient is asymptomatic. These studies are also indicated if the patient develops arthralgia, fever, chest pain, continued malaise or other unexplained signs or symptoms. A positive antinuclear antibody titer requires that the physician carefully weigh the implications of the test results against the benefits to be derived from antihypertensive therapy with hydralazine hydrochloride. Blood dyscrasias, consisting of reduction in hemoglobin and red cell count, leukopenia, agranulocytosis, and purpura, have been reported. If such abnormalities develop, therapy should be discontinued. Drug Interactions MAO inhibitors should be used with caution in patients receiving hydralazine. When other potent parenteral antihypertensive drugs, such as diazoxide, are used in combination with hydralazine, patients should be continuously observed for several hours for any excessive fall in blood pressure. Profound hypotensive episodes may occur when diazoxide injection and hydralazine hydrochloride injection are used concomitantly. Carcinogenesis, Mutagenesis, Impairment of Fertility In a lifetime study in Swiss albino mice, there was a statistically significant increase in the incidence of lung tumors (adenomas and adenocarcinomas) of both male and female mice given hydralazine continuously in their drinking water at a dosage of about 250 mg/kg per day (about 80 times the maximum recommended human dose). In a 2-year carcinogenicity study of rats given hydralazine by gavage at dose levels of 15, 30 and 60 mg/kg/day (approximately 5 to 20 times the recommended human daily dosage), microscopic examination of the liver revealed a\n</excerpt>\n\nReview this patient's medicines and return the flags.",
+  "schema": {
+   "type": "object",
+   "properties": {
+    "flags": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "flag_type": {
+        "type": "string",
+        "enum": [
+         "interaction",
+         "contraindication",
+         "dose"
+        ]
+       },
+       "drugs": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "Drug names exactly as given in 'Drug names to use'"
+       },
+       "severity": {
+        "type": "string",
+        "enum": [
+         "contraindicated",
+         "major",
+         "moderate"
+        ]
+       },
+       "explanation": {
+        "type": "string",
+        "description": "One or two sentences for the pharmacist"
+       },
+       "recommendation": {
+        "type": "string",
+        "description": "What the label says to do"
+       },
+       "citations": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "chunk_id": {
+           "type": "string"
+          },
+          "quote": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "chunk_id",
+          "quote"
+         ],
+         "additionalProperties": false
+        }
+       }
+      },
+      "required": [
+       "flag_type",
+       "drugs",
+       "severity",
+       "explanation",
+       "recommendation",
+       "citations"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "not_in_library": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "flags",
+    "not_in_library"
+   ],
+   "additionalProperties": false
+  }
+ }
+}

@@ -1,0 +1,124 @@
+{
+ "output": {
+  "flags": [
+   {
+    "flag_type": "interaction",
+    "drugs": [
+     "clarithromycin",
+     "dronedarone"
+    ],
+    "severity": "contraindicated",
+    "explanation": "Clarithromycin is a strong CYP3A inhibitor that significantly increases dronedarone exposure, which is contraindicated.",
+    "recommendation": "Do not use dronedarone with strong CYP3A inhibitors such as clarithromycin.",
+    "citations": [
+     {
+      "drug_label": "dronedarone",
+      "section": "CONTRAINDICATIONS",
+      "quote": "Dronedarone is contraindicated in patients with: Concomitant use of strong CYP3A inhibitors, including ketoconazole, itraconazole, voriconazole, cyclosporine, telithromycin, clarithromycin, and nefazodone."
+     }
+    ]
+   }
+  ],
+  "not_in_library": []
+ },
+ "usage": {
+  "input_tokens": 755,
+  "output_tokens": 220,
+  "seconds": 70.3
+ },
+ "model": "gemini:gemini-3.1-flash-lite",
+ "raw_text": "{\n  \"flags\": [\n    {\n      \"flag_type\": \"interaction\",\n      \"drugs\": [\n        \"clarithromycin\",\n        \"dronedarone\"\n      ],\n      \"severity\": \"contraindicated\",\n      \"explanation\": \"Clarithromycin is a strong CYP3A inhibitor that significantly increases dronedarone exposure, which is contraindicated.\",\n      \"recommendation\": \"Do not use dronedarone with strong CYP3A inhibitors such as clarithromycin.\",\n      \"citations\": [\n        {\n          \"drug_label\": \"dronedarone\",\n          \"section\": \"CONTRAINDICATIONS\",\n          \"quote\": \"Dronedarone is contraindicated in patients with: Concomitant use of strong CYP3A inhibitors, including ketoconazole, itraconazole, voriconazole, cyclosporine, telithromycin, clarithromycin, and nefazodone.\"\n        }\n      ]\n    }\n  ],\n  \"not_in_library\": []\n}",
+ "request": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "system": "You are a clinical pharmacy decision-support assistant that reviews a patient's medicines for a\npharmacist, using your knowledge of the official FDA drug labels (no documents are provided).\n\nFor every flag, name the label section the information comes from and quote the label's wording as exactly as you can\n(8 to 40 words).\n\nFlag only problems that apply to THIS patient:\n1. interaction: two of the patient's medicines that the label warns about when used together\n   (including dose limits for a combination, e.g. \"do not exceed X mg with drug Y\").\n2. contraindication: a medicine unsafe for this patient because of a condition, pregnancy, allergy or kidney function.\n3. dose: a dose that does not match the label for this patient's kidney function (CrCl / eGFR given),\n   age or body weight.\nDo not flag general warnings that apply to every patient taking the drug unless a feature of this patient or one\nof their other medicines triggers them. Use the CrCl and eGFR values given; do not recalculate them.\nMedicines marked [NOT IN OUR LABEL LIBRARY] must not be flagged; list them in not_in_library.\nIf there is nothing to flag, return an empty flags list.\n\nSeverity (use the label's own wording):\n- \"contraindicated\": the label says contraindicated, do not use, or must not be used.\n- \"major\": the label says avoid, reduce or change the dose, do not exceed a dose, or not recommended.\n- \"moderate\": the label says monitor, use caution, or consider a dose change.",
+  "user": "PATIENT\nAge: 70  Sex: M  Weight: 80.0 kg\nSerum creatinine: 1.0 mg/dL  ->  CrCl (Cockcroft-Gault): 77.8 mL/min, eGFR (CKD-EPI 2021): 81.0 mL/min/1.73m2  (calculated by code)\nPregnant: No\nConditions: paroxysmal atrial fibrillation; bronchitis\nAllergies: none\nMedications:\n- dronedarone 400 mg twice daily\n- clarithromycin 500 mg twice daily\n\nDrug names to use: clarithromycin, dronedarone\n\nReview this patient's medicines and return the flags.",
+  "schema": {
+   "type": "object",
+   "properties": {
+    "flags": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "flag_type": {
+        "type": "string",
+        "enum": [
+         "interaction",
+         "contraindication",
+         "dose"
+        ]
+       },
+       "drugs": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "Drug names exactly as given in 'Drug names to use'"
+       },
+       "severity": {
+        "type": "string",
+        "enum": [
+         "contraindicated",
+         "major",
+         "moderate"
+        ]
+       },
+       "explanation": {
+        "type": "string",
+        "description": "One or two sentences for the pharmacist"
+       },
+       "recommendation": {
+        "type": "string",
+        "description": "What the label says to do"
+       },
+       "citations": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "drug_label": {
+           "type": "string"
+          },
+          "section": {
+           "type": "string"
+          },
+          "quote": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "drug_label",
+          "section",
+          "quote"
+         ],
+         "additionalProperties": false
+        }
+       }
+      },
+      "required": [
+       "flag_type",
+       "drugs",
+       "severity",
+       "explanation",
+       "recommendation",
+       "citations"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "not_in_library": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "flags",
+    "not_in_library"
+   ],
+   "additionalProperties": false
+  }
+ }
+}
