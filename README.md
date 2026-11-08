@@ -182,9 +182,12 @@ All sources are free and public.
 
 ## Team
 
-| Name   | Role   |
-| ------ | ------ |
-| [Name] | [Role] |
-| [Name] | [Role] |
-| [Name] | [Role] |
-| [Name] | [Role] |
+| Name | Background |
+|---|---|
+| Pyae Sone Khant Aung (Junaid) | Master of Artificial Intelligence, Universiti Malaya |
+| Mengtao | MD program in Clinical Medicine, Tsinghua University, China |
+| Preedee Hunjeen | Bachelor's degree (2nd year), Faculty of Pharmaceutical Sciences, Chulalongkorn University |
+| Alina Zainab | PhD in Pharmacy, Universiti Malaya |
+| Tazkiyatan Isria | Master of Pharmaceutical Science, University of Indonesia |
+| Felicia Claresta | Apothecary (Pharmacist) Professional Degree, University of Indonesia |
+| Yilin | PhD, Faculty of Built Environment, Universiti Malaya |
